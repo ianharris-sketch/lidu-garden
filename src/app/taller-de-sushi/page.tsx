@@ -58,7 +58,7 @@ export default function TallerSushiPage() {
   return (
     <>
       {/* HERO */}
-      <section className="relative min-h-screen flex flex-col justify-center items-center text-center overflow-hidden pt-20 pb-16">
+      <section className="relative flex flex-col justify-center items-center text-center overflow-hidden pt-20 pb-16" style={{ minHeight: "100dvh" }}>
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/DSCF8019.jpg"

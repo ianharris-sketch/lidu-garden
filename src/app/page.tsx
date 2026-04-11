@@ -13,7 +13,7 @@ export default function HomePage() {
   return (
     <>
       {/* HERO */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+      <section className="relative flex items-center justify-center overflow-hidden pt-20" style={{ minHeight: "100dvh" }}>
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/DSCF7746.jpg"
