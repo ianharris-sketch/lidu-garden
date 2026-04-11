@@ -367,25 +367,10 @@ export default function CartaAccordion() {
 
   return (
     <>
-      {/* Sticky nav — grid on mobile, pill row on desktop */}
-      <div className="sticky top-16 md:top-20 z-40 bg-white/95 backdrop-blur-sm border-b border-[#E8D9F5]">
-        <div className="max-w-5xl mx-auto px-3 py-3">
-
-          {/* Mobile: 3-column grid — all 12 visible at once */}
-          <div className="grid grid-cols-3 gap-1.5 md:hidden">
-            {menuSections.map((section) => (
-              <button
-                key={section.id}
-                onClick={() => openAndScroll(section.id)}
-                className="px-2 py-2 rounded-xl text-[11px] font-medium text-[#7A6585] hover:text-[#6B3F8C] hover:bg-[#F0EBF7] active:bg-[#F0EBF7] active:text-[#6B3F8C] transition-colors leading-tight text-center cursor-pointer"
-              >
-                {section.title}
-              </button>
-            ))}
-          </div>
-
-          {/* Desktop: scrollable pill row */}
-          <div className="hidden md:flex items-center gap-1 overflow-x-auto">
+      {/* Sticky nav — desktop only */}
+      <div className="hidden md:block sticky top-20 z-40 bg-white/95 backdrop-blur-sm border-b border-[#E8D9F5]">
+        <div className="max-w-5xl mx-auto px-4 overflow-x-auto">
+          <div className="flex items-center gap-1 py-3">
             {menuSections.map((section) => (
               <button
                 key={section.id}
@@ -396,7 +381,6 @@ export default function CartaAccordion() {
               </button>
             ))}
           </div>
-
         </div>
       </div>
 
