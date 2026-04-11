@@ -34,23 +34,21 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? "bg-white/95 backdrop-blur-sm shadow-sm border-b border-[#E8D9F5]"
-            : "bg-white/90 backdrop-blur-sm"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#1C0F2E] ${
+          isScrolled ? "shadow-lg shadow-black/20" : ""
         }`}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Navegación principal">
           <div className="flex items-center justify-between h-16 md:h-20">
 
-            {/* Logo */}
-            <Link href="/" className="flex-shrink-0 hover:opacity-80 transition-opacity">
+            {/* Logo — always white/inverted */}
+            <Link href="/" className="flex-shrink-0 hover:opacity-75 transition-opacity">
               <Image
                 src="/images/logo.png"
                 alt="LiDu Garden"
                 width={120}
                 height={48}
-                className="h-10 md:h-12 w-auto"
+                className="h-10 md:h-12 w-auto brightness-0 invert"
                 priority
               />
             </Link>
@@ -63,8 +61,8 @@ export default function Navbar() {
                   href={link.href}
                   className={`text-sm font-medium tracking-wide transition-colors duration-200 ${
                     pathname === link.href
-                      ? "text-[#6B3F8C]"
-                      : "text-[#1C0F2E] hover:text-[#6B3F8C]"
+                      ? "text-[#C8973D]"
+                      : "text-white/80 hover:text-white"
                   }`}
                 >
                   {link.label}
@@ -76,14 +74,14 @@ export default function Navbar() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setShowModal(true)}
-                className="hidden sm:inline-flex items-center gap-2 bg-[#6B3F8C] text-white text-sm font-semibold px-5 py-2.5 rounded-full hover:bg-[#5a3378] transition-colors duration-200 shadow-sm"
+                className="hidden sm:inline-flex items-center gap-2 bg-[#C8973D] hover:bg-[#b5872e] text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors duration-200 shadow-sm"
               >
                 Reservar mesa
               </button>
 
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="md:hidden p-2 rounded-lg text-[#1C0F2E] hover:bg-[#F0EBF7] transition-colors"
+                className="md:hidden p-2 text-white/80 hover:text-white transition-colors"
                 aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
                 aria-expanded={isOpen}
               >
