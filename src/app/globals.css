@@ -91,6 +91,24 @@
   font-family: var(--font-cormorant), 'Cormorant Garamond', Georgia, serif;
 }
 
+/* Mobile nav overlay animations */
+@keyframes nav-overlay-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes nav-link-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes nav-bottom-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.nav-overlay       { animation: nav-overlay-in 0.25s ease forwards; }
+.nav-link-animate  { opacity: 0; animation: nav-link-in 0.35s ease forwards; }
+.nav-bottom-animate{ opacity: 0; animation: nav-bottom-in 0.35s ease forwards; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
