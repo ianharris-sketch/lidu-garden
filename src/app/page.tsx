@@ -147,7 +147,7 @@ export default function HomePage() {
                   alt="Fideos wok con gambas en LiDu Garden"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  style={{ objectPosition: "50% 65%" }}
+                  style={{ objectPosition: "50% 35%" }}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 />
               </div>
