@@ -146,7 +146,8 @@ export default function HomePage() {
                   src="/images/cocina-autentica.jpg"
                   alt="Fideos wok con gambas en LiDu Garden"
                   fill
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  style={{ objectPosition: "50% 65%" }}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 />
               </div>
