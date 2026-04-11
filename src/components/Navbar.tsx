@@ -92,41 +92,60 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Mobile menu */}
-          {isOpen && (
-            <div className="md:hidden border-t border-[#E8D9F5] py-4 space-y-1 bg-white">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                    pathname === link.href
-                      ? "text-[#6B3F8C] bg-[#F0EBF7]"
-                      : "text-[#1C0F2E] hover:bg-[#F0EBF7] hover:text-[#6B3F8C]"
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-              <div className="pt-3 px-4 flex flex-col gap-3">
-                <button
-                  onClick={() => { setShowModal(true); setIsOpen(false); }}
-                  className="w-full bg-[#6B3F8C] text-white text-sm font-semibold py-3 rounded-full hover:bg-[#5a3378] transition-colors"
-                >
-                  Reservar mesa
-                </button>
-                <a
-                  href="tel:965951170"
-                  className="w-full flex items-center justify-center gap-2 border border-[#E8D9F5] text-[#1C0F2E] text-sm font-medium py-3 rounded-full hover:bg-[#F0EBF7] transition-colors"
-                >
-                  <Phone size={16} />
-                  965 951 170
-                </a>
-              </div>
-            </div>
-          )}
         </nav>
       </header>
+
+      {/* Mobile overlay menu */}
+      {isOpen && (
+        <div className="fixed inset-0 z-40 bg-[#FDFAF6] flex flex-col md:hidden">
+          {/* Top bar inside overlay */}
+          <div className="flex items-center justify-between px-5 h-16 border-b border-[#E8D9F5]">
+            <Image src="/images/logo.png" alt="LiDu Garden" width={100} height={40} className="h-9 w-auto" />
+            <button
+              onClick={() => setIsOpen(false)}
+              className="p-2 text-[#1C0F2E]"
+              aria-label="Cerrar menú"
+            >
+              <X size={22} />
+            </button>
+          </div>
+
+          {/* Nav links */}
+          <nav className="flex-1 flex flex-col justify-center px-8 gap-1">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className={`font-display text-4xl py-3 border-b border-[#E8D9F5]/60 transition-colors ${
+                  pathname === link.href
+                    ? "text-[#6B3F8C]"
+                    : "text-[#1C0F2E] hover:text-[#6B3F8C]"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          {/* Bottom actions */}
+          <div className="px-8 pb-10 flex flex-col gap-3">
+            <button
+              onClick={() => { setShowModal(true); setIsOpen(false); }}
+              className="w-full bg-[#6B3F8C] text-white text-sm font-semibold py-3.5 rounded-full hover:bg-[#5a3378] transition-colors"
+            >
+              Reservar mesa
+            </button>
+            <a
+              href="tel:965951170"
+              className="w-full flex items-center justify-center gap-2 text-[#7A6585] text-sm py-2 transition-colors hover:text-[#1C0F2E]"
+            >
+              <Phone size={14} />
+              965 951 170
+            </a>
+          </div>
+        </div>
+      )}
 
       <DatesasModal isOpen={showModal} onClose={() => setShowModal(false)} />
     </>
