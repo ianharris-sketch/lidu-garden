@@ -165,11 +165,10 @@ export default function HomePage() {
                   src="/images/sushi-hecho.png"
                   alt="Nigiri de salmón en LiDu Garden"
                   fill
-                  className="object-cover object-[center_30%] group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  style={{ objectPosition: "50% 52%" }}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 />
-                {/* Cubre watermark esquina inferior derecha */}
-                <div className="absolute bottom-0 right-0 w-14 h-14 bg-gradient-to-tl from-white via-white/60 to-transparent pointer-events-none z-10" />
               </div>
               <div className="p-5">
                 <h3 className="font-display text-xl text-[#1C0F2E] mb-2">Sushi hecho aquí</h3>
@@ -186,11 +185,10 @@ export default function HomePage() {
                   src="/images/grupo-taller.png"
                   alt="Grupo disfrutando el taller de sushi en LiDu Garden"
                   fill
-                  className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  style={{ objectPosition: "50% 42%" }}
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 />
-                {/* Cubre watermark esquina inferior derecha */}
-                <div className="absolute bottom-0 right-0 w-14 h-14 bg-gradient-to-tl from-white via-white/60 to-transparent pointer-events-none z-10" />
               </div>
               <div className="p-5">
                 <h3 className="font-display text-xl text-[#1C0F2E] mb-2">Taller de sushi</h3>
@@ -272,22 +270,18 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* TALLER CTA — color cambiado a #6B3F8C */}
-      <section className="py-20 md:py-28 px-4 bg-[#6B3F8C]">
+      {/* TALLER CTA */}
+      <section className="py-20 md:py-28 px-4 bg-[#2A1444]">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-          {/* Imagen completa sin recortar */}
-          <div className="relative rounded-2xl overflow-hidden shadow-xl bg-[#6B3F8C]">
+          <div className="relative h-80 md:h-[460px] rounded-2xl overflow-hidden shadow-xl">
             <Image
               src="/images/aprende-linda.png"
               alt="Linda enseñando a hacer sushi en LiDu Garden"
-              width={600}
-              height={800}
-              className="w-full h-auto object-contain"
-              style={{ maxHeight: "480px", objectFit: "contain" }}
+              fill
+              className="object-cover"
+              style={{ objectPosition: "50% 22%" }}
               sizes="(max-width: 768px) 100vw, 50vw"
             />
-            {/* Cubre watermark esquina inferior derecha */}
-            <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-[#6B3F8C] via-[#6B3F8C]/60 to-transparent pointer-events-none z-10" />
           </div>
           <div className="text-white">
             <p className="text-xs uppercase tracking-[0.2em] text-[#C8973D] font-semibold mb-4">
