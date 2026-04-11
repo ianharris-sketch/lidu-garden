@@ -95,7 +95,7 @@ export default function HomePage() {
               <div className="w-px h-10 bg-[#E8D9F5]" />
               <div className="text-center">
                 <span className="font-display text-4xl font-semibold text-[#6B3F8C]">4</span>
-                <p className="text-xs text-[#7A6585] mt-1 uppercase tracking-wide">Cocinas</p>
+                <p className="text-xs text-[#7A6585] mt-1 uppercase tracking-wide">Tradiciones</p>
               </div>
               <div className="w-px h-10 bg-[#E8D9F5]" />
               <div className="text-center">
@@ -120,48 +120,85 @@ export default function HomePage() {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[
-              {
-                title: "Ambiente familiar",
-                description: "Una sala donde los niños son bienvenidos y los adultos pueden tomarse su tiempo. Sin prisa, sin ruido innecesario.",
-                image: "/images/DSCF7754.jpg",
-                alt: "Mesa familiar en LiDu Garden",
-              },
-              {
-                title: "Cocina auténtica",
-                description: "Recetas chinas, japonesas, tailandesas y vietnamitas. Cada plato tiene una historia detrás de la carta.",
-                image: "/images/DSCF7945.jpg",
-                alt: "Plato de fusión asiática",
-              },
-              {
-                title: "Sushi hecho aquí",
-                description: "Piezas preparadas en el momento. También puedes aprender a hacerlo tú mismo en nuestro taller mensual.",
-                image: "/images/DSCF8019.jpg",
-                alt: "Sushi y entrantes de LiDu Garden",
-              },
-              {
-                title: "Taller de sushi",
-                description: "El último sábado de cada mes, kimono incluido. Una tarde diferente para parejas, familias o grupos.",
-                image: "/images/DSCF7917.jpg",
-                alt: "Plato de brochetas en LiDu Garden",
-              },
-            ].map((item) => (
-              <div key={item.title} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={item.image}
-                    alt={item.alt}
-                    fill
-                    className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  />
-                </div>
-                <div className="p-5">
-                  <h3 className="font-display text-xl text-[#1C0F2E] mb-2">{item.title}</h3>
-                  <p className="text-sm text-[#7A6585] leading-relaxed">{item.description}</p>
-                </div>
+            {/* Card 1 — Ambiente familiar */}
+            <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+              <div className="relative h-48 overflow-hidden">
+                <Image
+                  src="/images/DSCF7754.jpg"
+                  alt="Mesa familiar en LiDu Garden"
+                  fill
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
               </div>
-            ))}
+              <div className="p-5">
+                <h3 className="font-display text-xl text-[#1C0F2E] mb-2">Ambiente familiar</h3>
+                <p className="text-sm text-[#7A6585] leading-relaxed">
+                  Una sala donde los niños son bienvenidos y los adultos pueden tomarse su tiempo. Sin prisa, sin ruido innecesario.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2 — Cocina auténtica */}
+            <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+              <div className="relative h-48 overflow-hidden">
+                <Image
+                  src="/images/cocina-autentica.jpg"
+                  alt="Fideos wok con gambas en LiDu Garden"
+                  fill
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
+              </div>
+              <div className="p-5">
+                <h3 className="font-display text-xl text-[#1C0F2E] mb-2">Cocina auténtica</h3>
+                <p className="text-sm text-[#7A6585] leading-relaxed">
+                  Recetas chinas, japonesas, tailandesas y vietnamitas. Cada plato tiene una historia detrás de la carta.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 3 — Sushi hecho aquí */}
+            <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+              <div className="relative h-48 overflow-hidden">
+                <Image
+                  src="/images/sushi-hecho.png"
+                  alt="Nigiri de salmón en LiDu Garden"
+                  fill
+                  className="object-cover object-[center_30%] group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
+                {/* Cubre watermark esquina inferior derecha */}
+                <div className="absolute bottom-0 right-0 w-14 h-14 bg-gradient-to-tl from-white via-white/60 to-transparent pointer-events-none z-10" />
+              </div>
+              <div className="p-5">
+                <h3 className="font-display text-xl text-[#1C0F2E] mb-2">Sushi hecho aquí</h3>
+                <p className="text-sm text-[#7A6585] leading-relaxed">
+                  Piezas preparadas en el momento. También puedes aprender a hacerlo tú mismo en nuestro taller mensual.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 4 — Taller de sushi */}
+            <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
+              <div className="relative h-48 overflow-hidden">
+                <Image
+                  src="/images/grupo-taller.png"
+                  alt="Grupo disfrutando el taller de sushi en LiDu Garden"
+                  fill
+                  className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+                />
+                {/* Cubre watermark esquina inferior derecha */}
+                <div className="absolute bottom-0 right-0 w-14 h-14 bg-gradient-to-tl from-white via-white/60 to-transparent pointer-events-none z-10" />
+              </div>
+              <div className="p-5">
+                <h3 className="font-display text-xl text-[#1C0F2E] mb-2">Taller de sushi</h3>
+                <p className="text-sm text-[#7A6585] leading-relaxed">
+                  El último sábado de cada mes, kimono incluido. Una tarde diferente para parejas, familias o grupos.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -194,34 +231,63 @@ export default function HomePage() {
 
             <div className="grid grid-cols-2 gap-3">
               <div className="relative h-48 rounded-xl overflow-hidden">
-                <Image src="/images/DSCF7869.jpg" alt="Gyozas de LiDu Garden" fill className="object-cover" sizes="(max-width: 768px) 50vw, 25vw" />
+                <Image
+                  src="/images/DSCF7869.jpg"
+                  alt="Gyozas de LiDu Garden"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                />
               </div>
               <div className="relative h-48 rounded-xl overflow-hidden mt-6">
-                <Image src="/images/DSCF7898.jpg" alt="Brochetas yakitori" fill className="object-cover" sizes="(max-width: 768px) 50vw, 25vw" />
+                <Image
+                  src="/images/DSCF7898.jpg"
+                  alt="Brochetas yakitori"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                />
               </div>
+              {/* DSCF8015 — bajado para ver el plato principal */}
               <div className="relative h-48 rounded-xl overflow-hidden">
-                <Image src="/images/DSCF8015.jpg" alt="Entrantes crujientes" fill className="object-cover" sizes="(max-width: 768px) 50vw, 25vw" />
+                <Image
+                  src="/images/DSCF8015.jpg"
+                  alt="Entrantes crujientes"
+                  fill
+                  className="object-cover object-[50%_65%]"
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                />
               </div>
               <div className="relative h-48 rounded-xl overflow-hidden mt-6">
-                <Image src="/images/DSCF7847.jpg" alt="Mesa junto a la ventana" fill className="object-cover" sizes="(max-width: 768px) 50vw, 25vw" />
+                <Image
+                  src="/images/DSCF7847.jpg"
+                  alt="Mesa junto a la ventana"
+                  fill
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 50vw, 25vw"
+                />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* TALLER CTA */}
-      <section className="py-20 md:py-28 px-4 bg-[#2A1444]">
+      {/* TALLER CTA — color cambiado a #6B3F8C */}
+      <section className="py-20 md:py-28 px-4 bg-[#6B3F8C]">
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
-          <div className="relative h-72 md:h-96 rounded-2xl overflow-hidden">
+          {/* Imagen completa sin recortar */}
+          <div className="relative rounded-2xl overflow-hidden shadow-xl bg-[#6B3F8C]">
             <Image
-              src="/images/DSCF8019.jpg"
-              alt="Taller de sushi en LiDu Garden"
-              fill
-              className="object-cover"
+              src="/images/aprende-linda.png"
+              alt="Linda enseñando a hacer sushi en LiDu Garden"
+              width={600}
+              height={800}
+              className="w-full h-auto object-contain"
+              style={{ maxHeight: "480px", objectFit: "contain" }}
               sizes="(max-width: 768px) 100vw, 50vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#2A1444]/50 to-transparent" />
+            {/* Cubre watermark esquina inferior derecha */}
+            <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-[#6B3F8C] via-[#6B3F8C]/60 to-transparent pointer-events-none z-10" />
           </div>
           <div className="text-white">
             <p className="text-xs uppercase tracking-[0.2em] text-[#C8973D] font-semibold mb-4">
@@ -230,7 +296,7 @@ export default function HomePage() {
             <h2 className="font-display text-4xl md:text-5xl mb-5 leading-tight">
               Aprende a hacer sushi con Linda
             </h2>
-            <p className="text-white/70 leading-relaxed mb-4">
+            <p className="text-white/75 leading-relaxed mb-4">
               Dos horas, kimono tradicional, ingredientes frescos y la foto Polaroid de recuerdo.
               Solo 12 plazas. Para parejas, familias o grupos.
             </p>
