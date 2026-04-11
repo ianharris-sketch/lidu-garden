@@ -34,21 +34,23 @@ export default function Navbar() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#1C0F2E] ${
-          isScrolled ? "shadow-lg shadow-black/20" : ""
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? "bg-[#FDFAF6]/95 backdrop-blur-sm shadow-sm border-b border-[#E8D9F5]"
+            : "bg-transparent"
         }`}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Navegación principal">
           <div className="flex items-center justify-between h-16 md:h-20">
 
-            {/* Logo — always white/inverted */}
+            {/* Logo — white when transparent, dark when scrolled */}
             <Link href="/" className="flex-shrink-0 hover:opacity-75 transition-opacity">
               <Image
                 src="/images/logo.png"
                 alt="LiDu Garden"
                 width={120}
                 height={48}
-                className="h-10 md:h-12 w-auto brightness-0 invert"
+                className={`h-10 md:h-12 w-auto transition-all duration-300 ${isScrolled ? "" : "brightness-0 invert"}`}
                 priority
               />
             </Link>
@@ -61,8 +63,8 @@ export default function Navbar() {
                   href={link.href}
                   className={`text-sm font-medium tracking-wide transition-colors duration-200 ${
                     pathname === link.href
-                      ? "text-[#C8973D]"
-                      : "text-white/80 hover:text-white"
+                      ? isScrolled ? "text-[#6B3F8C]" : "text-[#C8973D]"
+                      : isScrolled ? "text-[#1C0F2E] hover:text-[#6B3F8C]" : "text-white/85 hover:text-white"
                   }`}
                 >
                   {link.label}
@@ -74,14 +76,18 @@ export default function Navbar() {
             <div className="flex items-center gap-3">
               <button
                 onClick={() => setShowModal(true)}
-                className="hidden sm:inline-flex items-center gap-2 bg-[#C8973D] hover:bg-[#b5872e] text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors duration-200 shadow-sm"
+                className={`hidden sm:inline-flex items-center gap-2 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors duration-200 shadow-sm ${
+                  isScrolled ? "bg-[#6B3F8C] hover:bg-[#5a3378]" : "bg-[#C8973D] hover:bg-[#b5872e]"
+                }`}
               >
                 Reservar mesa
               </button>
 
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="md:hidden p-2 text-white/80 hover:text-white transition-colors"
+                className={`md:hidden p-2 transition-colors ${
+                  isScrolled ? "text-[#1C0F2E] hover:text-[#6B3F8C]" : "text-white/85 hover:text-white"
+                }`}
                 aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
                 aria-expanded={isOpen}
               >
@@ -95,7 +101,7 @@ export default function Navbar() {
 
       {/* Mobile overlay menu */}
       {isOpen && (
-        <div className="nav-overlay fixed inset-0 z-40 bg-[#1C0F2E] flex flex-col md:hidden">
+        <div className="nav-overlay fixed inset-0 z-[60] bg-[#1C0F2E] flex flex-col md:hidden">
 
           {/* Top bar */}
           <div className="flex items-center justify-between px-6 h-16">
