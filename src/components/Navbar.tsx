@@ -35,7 +35,7 @@ export default function Navbar() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled || ["/carta", "/menus", "/contacto"].includes(pathname)
+          isScrolled || ["/carta", "/menus", "/contacto", "/carta/", "/menus/", "/contacto/"].includes(pathname)
             ? "bg-[#FDFAF6]/95 backdrop-blur-sm shadow-sm border-b border-[#E8D9F5]"
             : "bg-transparent"
         }`}
@@ -50,7 +50,7 @@ export default function Navbar() {
                 alt="LiDu Garden"
                 width={120}
                 height={48}
-                className={`h-10 md:h-12 w-auto transition-all duration-300 ${isScrolled || ["/carta", "/menus", "/contacto"].includes(pathname) ? "" : "brightness-0 invert"}`}
+                className={`h-10 md:h-12 w-auto transition-all duration-300 ${isScrolled || ["/carta", "/menus", "/contacto", "/carta/", "/menus/", "/contacto/"].includes(pathname) ? "" : "brightness-0 invert"}`}
                 priority
               />
             </Link>
@@ -63,7 +63,7 @@ export default function Navbar() {
                   href={link.href}
                   className={`text-sm font-medium tracking-wide transition-colors duration-200 ${
                     (() => {
-                      const solid = isScrolled || ["/carta", "/menus", "/contacto"].includes(pathname);
+                      const solid = isScrolled || ["/carta", "/menus", "/contacto", "/carta/", "/menus/", "/contacto/"].includes(pathname);
                       if (pathname === link.href) return solid ? "text-[#6B3F8C]" : "text-[#C8973D]";
                       return solid ? "text-[#1C0F2E] hover:text-[#6B3F8C]" : "text-white/85 hover:text-white";
                     })()
@@ -79,7 +79,7 @@ export default function Navbar() {
               <button
                 onClick={() => setShowModal(true)}
                 className={`hidden sm:inline-flex items-center gap-2 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors duration-200 shadow-sm ${
-                  isScrolled || ["/carta", "/menus", "/contacto"].includes(pathname) ? "bg-[#6B3F8C] hover:bg-[#5a3378]" : "bg-[#C8973D] hover:bg-[#b5872e]"
+                  isScrolled || ["/carta", "/menus", "/contacto", "/carta/", "/menus/", "/contacto/"].includes(pathname) ? "bg-[#6B3F8C] hover:bg-[#5a3378]" : "bg-[#C8973D] hover:bg-[#b5872e]"
                 }`}
               >
                 Reservar mesa
@@ -88,7 +88,7 @@ export default function Navbar() {
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className={`md:hidden p-2 transition-colors ${
-                  isScrolled || ["/carta", "/menus", "/contacto"].includes(pathname) ? "text-[#1C0F2E] hover:text-[#6B3F8C]" : "text-white/85 hover:text-white"
+                  isScrolled || ["/carta", "/menus", "/contacto", "/carta/", "/menus/", "/contacto/"].includes(pathname) ? "text-[#1C0F2E] hover:text-[#6B3F8C]" : "text-white/85 hover:text-white"
                 }`}
                 aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
                 aria-expanded={isOpen}
