@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Phone, Mail, MapPin, Clock } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, ExternalLink } from "lucide-react";
 import ReservarButton from "@/components/ReservarButton";
 
 export const metadata: Metadata = {
@@ -9,10 +9,9 @@ export const metadata: Metadata = {
 };
 
 const horario = [
-  { dias: "Martes – Viernes", horas: "13:00 – 16:00 · 20:00 – 23:30" },
-  { dias: "Sábados", horas: "13:00 – 16:30 · 20:00 – 23:30" },
-  { dias: "Domingos", horas: "13:00 – 16:30" },
-  { dias: "Lunes", horas: "Cerrado" },
+  { dias: "Martes – Domingo", horas: "12:30 – 16:30", turno: "Mediodía" },
+  { dias: "Martes – Domingo", horas: "20:00 – 23:45", turno: "Noche" },
+  { dias: "Lunes", horas: "Cerrado", turno: "" },
 ];
 
 export default function ContactoPage() {
@@ -111,16 +110,21 @@ export default function ContactoPage() {
                   <Clock size={18} className="text-[#6B3F8C]" />
                 </div>
                 <div className="flex-1">
-                  <p className="text-xs uppercase tracking-[0.15em] text-[#7A6585] font-semibold mb-3">
+                  <p className="text-xs uppercase tracking-[0.15em] text-[#7A6585] font-semibold mb-4">
                     Horario
                   </p>
-                  <ul className="space-y-2">
-                    {horario.map((h) => (
-                      <li key={h.dias} className="flex justify-between items-baseline text-sm gap-3">
-                        <span className={`font-medium ${h.horas === "Cerrado" ? "text-[#7A6585]" : "text-[#1C0F2E]"}`}>
-                          {h.dias}
-                        </span>
-                        <span className={`text-xs shrink-0 ${h.horas === "Cerrado" ? "text-[#C8973D]" : "text-[#7A6585]"}`}>
+                  <ul className="space-y-3">
+                    {horario.map((h, i) => (
+                      <li key={i} className="flex justify-between items-center gap-3">
+                        <div>
+                          <span className={`text-sm font-medium block ${h.horas === "Cerrado" ? "text-[#7A6585]" : "text-[#1C0F2E]"}`}>
+                            {h.dias}
+                          </span>
+                          {h.turno && (
+                            <span className="text-[11px] text-[#7A6585]">{h.turno}</span>
+                          )}
+                        </div>
+                        <span className={`text-sm font-semibold shrink-0 ${h.horas === "Cerrado" ? "text-[#C8973D]" : "text-[#6B3F8C]"}`}>
                           {h.horas}
                         </span>
                       </li>
@@ -162,9 +166,8 @@ export default function ContactoPage() {
             </div>
           </div>
 
-          {/* Contact form + reserva */}
+          {/* Reserva + formulario */}
           <div className="space-y-6">
-            {/* Reserva */}
             <div className="bg-[#2A1444] rounded-2xl p-7 text-white">
               <h2 className="font-display text-3xl mb-2">Reserva tu mesa</h2>
               <p className="text-white/60 text-sm mb-6 leading-relaxed">
@@ -175,28 +178,18 @@ export default function ContactoPage() {
               </ReservarButton>
             </div>
 
-            {/* Formulario de contacto */}
             <div className="bg-white rounded-2xl p-7 shadow-sm border border-[#E8D9F5]">
               <h2 className="font-display text-2xl text-[#1C0F2E] mb-2">Escríbenos</h2>
               <p className="text-sm text-[#7A6585] mb-6">
                 Para grupos, eventos privados, talleres o cualquier otra consulta.
               </p>
-
-              {/* TODO: Replace with Formspree form if form ID is provided */}
-              <form
-                action="mailto:info@lidugarden.com"
-                method="GET"
-                className="space-y-4"
-              >
+              <form action="mailto:info@lidugarden.com" method="GET" className="space-y-4">
                 <div>
                   <label htmlFor="nombre" className="block text-xs font-semibold text-[#1C0F2E] uppercase tracking-[0.1em] mb-1.5">
                     Nombre
                   </label>
                   <input
-                    id="nombre"
-                    type="text"
-                    name="nombre"
-                    required
+                    id="nombre" type="text" name="nombre" required
                     className="w-full border border-[#E8D9F5] rounded-xl px-4 py-3 text-sm text-[#1C0F2E] placeholder-[#7A6585] focus:outline-none focus:ring-2 focus:ring-[#6B3F8C]/30 focus:border-[#6B3F8C] transition-colors bg-[#FDFAF6]"
                     placeholder="Tu nombre"
                   />
@@ -206,10 +199,7 @@ export default function ContactoPage() {
                     Correo electrónico
                   </label>
                   <input
-                    id="correo"
-                    type="email"
-                    name="correo"
-                    required
+                    id="correo" type="email" name="correo" required
                     className="w-full border border-[#E8D9F5] rounded-xl px-4 py-3 text-sm text-[#1C0F2E] placeholder-[#7A6585] focus:outline-none focus:ring-2 focus:ring-[#6B3F8C]/30 focus:border-[#6B3F8C] transition-colors bg-[#FDFAF6]"
                     placeholder="tu@correo.com"
                   />
@@ -219,10 +209,7 @@ export default function ContactoPage() {
                     Mensaje
                   </label>
                   <textarea
-                    id="mensaje"
-                    name="body"
-                    required
-                    rows={4}
+                    id="mensaje" name="body" required rows={4}
                     className="w-full border border-[#E8D9F5] rounded-xl px-4 py-3 text-sm text-[#1C0F2E] placeholder-[#7A6585] focus:outline-none focus:ring-2 focus:ring-[#6B3F8C]/30 focus:border-[#6B3F8C] transition-colors bg-[#FDFAF6] resize-none"
                     placeholder="¿En qué podemos ayudarte?"
                   />
@@ -239,18 +226,78 @@ export default function ContactoPage() {
         </div>
       </section>
 
-      {/* Google Maps embed */}
-      <section className="h-72 md:h-96 w-full">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3170.0!2d-0.4341!3d38.4082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMzjCsDI0JzI5LjUiTiAwwrAyNicwMi44Ilc!5e0!3m2!1ses!2ses!4v1234567890"
-          width="100%"
-          height="100%"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title="Ubicación de LiDu Garden en Mutxamel, Alicante"
-        />
+      {/* Mapa flotante */}
+      <section className="pb-24 px-4 bg-[#FDFAF6]">
+        <div className="max-w-5xl mx-auto">
+
+          {/* Encabezado */}
+          <div className="text-center mb-10">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#6B3F8C] font-semibold mb-2">
+              Cómo llegar
+            </p>
+            <h2 className="font-display text-4xl md:text-5xl text-[#1C0F2E]">
+              Nos encontrarás en Mutxamel
+            </h2>
+          </div>
+
+          {/* Tarjeta flotante del mapa */}
+          <div className="rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5">
+
+            {/* Barra superior de la tarjeta */}
+            <div className="bg-white px-6 py-4 flex items-center justify-between border-b border-[#E8D9F5]">
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-full bg-[#F0EBF7] flex items-center justify-center">
+                  <MapPin size={15} className="text-[#6B3F8C]" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-[#1C0F2E]">LiDu Garden</p>
+                  <p className="text-xs text-[#7A6585]">Mutxamel, Alicante</p>
+                </div>
+              </div>
+              <a
+                href="https://www.google.com/maps/search/?api=1&query=Lidu+garden+Mutxamel+Alicante"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 text-xs font-semibold text-[#6B3F8C] hover:text-[#5a3378] transition-colors border border-[#E8D9F5] rounded-full px-4 py-2 hover:bg-[#F0EBF7]"
+              >
+                <ExternalLink size={12} />
+                Abrir en Maps
+              </a>
+            </div>
+
+            {/* El mapa */}
+            <div className="h-80 md:h-[420px] w-full">
+              <iframe
+                src="https://maps.google.com/maps?q=LiDu+Garden+Mutxamel+Alicante&z=15&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Ubicación de LiDu Garden en Mutxamel, Alicante"
+              />
+            </div>
+
+            {/* Barra inferior de la tarjeta */}
+            <div className="bg-white px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-t border-[#E8D9F5]">
+              <div className="flex items-center gap-5 text-xs text-[#7A6585]">
+                <span className="flex items-center gap-1.5">
+                  <Clock size={13} className="text-[#6B3F8C]" />
+                  Mar – Dom · 12:30–16:30 y 20:00–23:45
+                </span>
+                <span className="hidden sm:flex items-center gap-1.5">
+                  <Phone size={13} className="text-[#6B3F8C]" />
+                  965 951 170
+                </span>
+              </div>
+              <ReservarButton className="bg-[#6B3F8C] hover:bg-[#5a3378] text-white font-semibold px-6 py-2.5 rounded-full text-xs transition-colors shrink-0">
+                Reservar mesa
+              </ReservarButton>
+            </div>
+
+          </div>
+        </div>
       </section>
     </>
   );
