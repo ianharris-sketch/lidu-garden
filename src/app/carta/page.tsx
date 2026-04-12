@@ -28,7 +28,7 @@ export default function CartaPage() {
 
       {/* Reserva CTA */}
       <section className="py-16 px-4 bg-[#2A1444] text-center text-white">
-        <h2 className="font-display text-3xl md:text-4xl mb-4">Preparado para disfrutar</h2>
+        <h2 className="font-display text-3xl md:text-4xl mb-4">¿Preparado para disfrutar?</h2>
         <p className="text-white/60 mb-8 text-sm">Reserva tu mesa y te esperamos con todo listo.</p>
         <ReservarButton className="bg-[#C8973D] hover:bg-[#b5872e] text-white font-semibold px-9 py-3.5 rounded-full text-sm transition-colors shadow-sm">
           Reservar mesa
