@@ -193,7 +193,7 @@ function MenuCardContent({ menu }: { menu: MenuCard }) {
       <div className="p-7 flex flex-col flex-1">
         <p
           className={`text-xs uppercase tracking-[0.15em] font-semibold mb-2 ${
-            menu.highlight ? "text-[#C8973D]" : "text-[#6B3F8C]"
+            menu.highlight ? "text-[#C8973D]" : "text-[#7A52A0]"
           }`}
         >
           {menu.tag}
@@ -210,7 +210,7 @@ function MenuCardContent({ menu }: { menu: MenuCard }) {
           <div className="flex items-baseline gap-1 mb-4">
             <span
               className={`font-display text-4xl font-semibold ${
-                menu.highlight ? "text-[#C8973D]" : "text-[#6B3F8C]"
+                menu.highlight ? "text-[#C8973D]" : "text-[#7A52A0]"
               }`}
             >
               {menu.price} €
@@ -221,7 +221,7 @@ function MenuCardContent({ menu }: { menu: MenuCard }) {
           </div>
         ) : (
           <div className="mb-4">
-            <span className={`font-display text-2xl font-semibold ${menu.highlight ? "text-[#C8973D]" : "text-[#6B3F8C]"}`}>
+            <span className={`font-display text-2xl font-semibold ${menu.highlight ? "text-[#C8973D]" : "text-[#7A52A0]"}`}>
               A medida
             </span>
           </div>
@@ -247,12 +247,12 @@ function MenuCardContent({ menu }: { menu: MenuCard }) {
                   onClick={() => setOpenCourse(openCourse === idx ? null : idx)}
                   className="w-full flex items-center justify-between px-4 py-3 text-left"
                 >
-                  <span className="text-xs font-semibold uppercase tracking-[0.12em] text-[#6B3F8C]">
+                  <span className="text-xs font-semibold uppercase tracking-[0.12em] text-[#7A52A0]">
                     {course.label}
                   </span>
                   <ChevronDown
                     size={15}
-                    className={`text-[#6B3F8C] shrink-0 transition-transform duration-200 ${
+                    className={`text-[#7A52A0] shrink-0 transition-transform duration-200 ${
                       openCourse === idx ? "rotate-180" : ""
                     }`}
                   />
@@ -261,7 +261,7 @@ function MenuCardContent({ menu }: { menu: MenuCard }) {
                   <ul className="px-4 pb-3 space-y-1.5 border-t border-[#E8D9F5]">
                     {course.options.map((opt) => (
                       <li key={opt} className="flex items-start gap-2 pt-1.5">
-                        <Check size={13} className="mt-0.5 shrink-0 text-[#6B3F8C]" />
+                        <Check size={13} className="mt-0.5 shrink-0 text-[#7A52A0]" />
                         <span className="text-sm text-[#1C0F2E]">{opt}</span>
                       </li>
                     ))}
@@ -280,7 +280,7 @@ function MenuCardContent({ menu }: { menu: MenuCard }) {
                 <Check
                   size={15}
                   className={`mt-0.5 shrink-0 ${
-                    menu.highlight ? "text-[#C8973D]" : "text-[#6B3F8C]"
+                    menu.highlight ? "text-[#C8973D]" : "text-[#7A52A0]"
                   }`}
                 />
                 <span
@@ -299,7 +299,7 @@ function MenuCardContent({ menu }: { menu: MenuCard }) {
             className={`w-full py-3.5 rounded-full text-sm font-semibold transition-colors ${
               menu.highlight
                 ? "bg-[#C8973D] hover:bg-[#b5872e] text-white"
-                : "bg-[#6B3F8C] hover:bg-[#5a3378] text-white"
+                : "bg-[#7A52A0] hover:bg-[#5a3378] text-white"
             }`}
           >
             Reservar mesa
@@ -308,14 +308,14 @@ function MenuCardContent({ menu }: { menu: MenuCard }) {
           <div className="flex flex-col gap-2">
             <a
               href="tel:965951170"
-              className="w-full py-3.5 rounded-full text-sm font-semibold bg-[#6B3F8C] hover:bg-[#5a3378] text-white flex items-center justify-center gap-2 transition-colors"
+              className="w-full py-3.5 rounded-full text-sm font-semibold bg-[#7A52A0] hover:bg-[#5a3378] text-white flex items-center justify-center gap-2 transition-colors"
             >
               <Phone size={15} />
               965 951 170
             </a>
             <a
               href="mailto:info@lidugarden.com"
-              className="w-full py-3 rounded-full text-sm font-medium border border-[#E8D9F5] text-[#6B3F8C] hover:bg-[#F0EBF7] flex items-center justify-center gap-2 transition-colors"
+              className="w-full py-3 rounded-full text-sm font-medium border border-[#E8D9F5] text-[#7A52A0] hover:bg-[#F0EBF7] flex items-center justify-center gap-2 transition-colors"
             >
               <Mail size={15} />
               info@lidugarden.com
@@ -348,7 +348,7 @@ export default function MenusClient() {
                   isActive
                     ? menu.highlight
                       ? "bg-[#2A1444] ring-2 ring-[#C8973D]"
-                      : "bg-[#6B3F8C]"
+                      : "bg-[#7A52A0]"
                     : "bg-white border border-[#E8D9F5]"
                 }`}
               >
@@ -370,7 +370,7 @@ export default function MenusClient() {
                       ? menu.highlight
                         ? "text-[#C8973D]"
                         : "text-white/70"
-                      : "text-[#6B3F8C]"
+                      : "text-[#7A52A0]"
                   }`}
                 >
                   {menu.price ? `${menu.price} €` : "A medida"}

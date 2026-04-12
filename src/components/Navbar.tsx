@@ -64,8 +64,8 @@ export default function Navbar() {
                   className={`text-sm font-medium tracking-wide transition-colors duration-200 ${
                     (() => {
                       const solid = isScrolled || ["/carta", "/menus", "/contacto", "/carta/", "/menus/", "/contacto/"].includes(pathname);
-                      if (pathname === link.href) return solid ? "text-[#6B3F8C]" : "text-[#C8973D]";
-                      return solid ? "text-[#1C0F2E] hover:text-[#6B3F8C]" : "text-white/85 hover:text-white";
+                      if (pathname === link.href) return solid ? "text-[#7A52A0]" : "text-[#C8973D]";
+                      return solid ? "text-[#1C0F2E] hover:text-[#7A52A0]" : "text-white/85 hover:text-white";
                     })()
                   }`}
                 >
@@ -79,7 +79,7 @@ export default function Navbar() {
               <button
                 onClick={() => setShowModal(true)}
                 className={`hidden sm:inline-flex items-center gap-2 text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors duration-200 shadow-sm ${
-                  isScrolled || ["/carta", "/menus", "/contacto", "/carta/", "/menus/", "/contacto/"].includes(pathname) ? "bg-[#6B3F8C] hover:bg-[#5a3378]" : "bg-[#C8973D] hover:bg-[#b5872e]"
+                  isScrolled || ["/carta", "/menus", "/contacto", "/carta/", "/menus/", "/contacto/"].includes(pathname) ? "bg-[#7A52A0] hover:bg-[#5a3378]" : "bg-[#C8973D] hover:bg-[#b5872e]"
                 }`}
               >
                 Reservar mesa
@@ -88,7 +88,7 @@ export default function Navbar() {
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className={`md:hidden p-2 transition-colors ${
-                  isScrolled || ["/carta", "/menus", "/contacto", "/carta/", "/menus/", "/contacto/"].includes(pathname) ? "text-[#1C0F2E] hover:text-[#6B3F8C]" : "text-white/85 hover:text-white"
+                  isScrolled || ["/carta", "/menus", "/contacto", "/carta/", "/menus/", "/contacto/"].includes(pathname) ? "text-[#1C0F2E] hover:text-[#7A52A0]" : "text-white/85 hover:text-white"
                 }`}
                 aria-label={isOpen ? "Cerrar menú" : "Abrir menú"}
                 aria-expanded={isOpen}

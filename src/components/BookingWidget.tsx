@@ -70,8 +70,8 @@ export default function BookingWidget() {
                 onClick={() => setSelectedDate(date)}
                 className={`px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wide border transition-all ${
                   isSelected
-                    ? "bg-[#6B3F8C] text-white border-[#6B3F8C] shadow-md"
-                    : "bg-white text-[#7A6585] border-[#E8D9F5] hover:border-[#6B3F8C] hover:text-[#6B3F8C]"
+                    ? "bg-[#7A52A0] text-white border-[#7A52A0] shadow-md"
+                    : "bg-white text-[#7A6585] border-[#E8D9F5] hover:border-[#7A52A0] hover:text-[#7A52A0]"
                 }`}
               >
                 {formatShort(date)}

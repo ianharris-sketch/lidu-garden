@@ -41,7 +41,7 @@
   --card-foreground: #1C0F2E;
   --popover: #FFFFFF;
   --popover-foreground: #1C0F2E;
-  --primary: #6B3F8C;
+  --primary: #7A52A0;
   --primary-foreground: #FDFAF6;
   --secondary: #F0EBF7;
   --secondary-foreground: #1C0F2E;
@@ -52,7 +52,7 @@
   --destructive: oklch(0.577 0.245 27.325);
   --border: #E8D9F5;
   --input: #E8D9F5;
-  --ring: #6B3F8C;
+  --ring: #7A52A0;
   --radius: 0.75rem;
   --dark-section: #2A1444;
 }
@@ -82,7 +82,7 @@
   }
 
   ::selection {
-    background-color: #6B3F8C33;
+    background-color: #7A52A033;
     color: #1C0F2E;
   }
 }

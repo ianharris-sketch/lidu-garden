@@ -59,7 +59,7 @@ export default function HomePage() {
       {/* SOBRE NOSOTROS */}
       <section className="py-20 md:py-28 px-4">
         <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-          <div className="relative">
+          <div className="relative order-2 md:order-1">
             <div className="relative h-[420px] md:h-[520px] rounded-2xl overflow-hidden shadow-xl">
               <Image
                 src="/images/DSCF7787.jpg"
@@ -72,8 +72,8 @@ export default function HomePage() {
             <div className="absolute -bottom-4 -right-4 w-32 h-32 border-2 border-[#C8973D] rounded-2xl -z-10 hidden md:block" />
           </div>
 
-          <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-[#6B3F8C] font-semibold mb-4">
+          <div className="order-1 md:order-2">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#7A52A0] font-semibold mb-4">
               Nuestra historia
             </p>
             <h2 className="font-display text-4xl md:text-5xl text-[#1C0F2E] mb-6 leading-tight">
@@ -89,17 +89,17 @@ export default function HomePage() {
             </p>
             <div className="flex items-center gap-6">
               <div className="text-center">
-                <span className="font-display text-4xl font-semibold text-[#6B3F8C]">+25</span>
+                <span className="font-display text-4xl font-semibold text-[#7A52A0]">+25</span>
                 <p className="text-xs text-[#7A6585] mt-1 uppercase tracking-wide">Años</p>
               </div>
               <div className="w-px h-10 bg-[#E8D9F5]" />
               <div className="text-center">
-                <span className="font-display text-4xl font-semibold text-[#6B3F8C]">4</span>
+                <span className="font-display text-4xl font-semibold text-[#7A52A0]">4</span>
                 <p className="text-xs text-[#7A6585] mt-1 uppercase tracking-wide">Tradiciones</p>
               </div>
               <div className="w-px h-10 bg-[#E8D9F5]" />
               <div className="text-center">
-                <span className="font-display text-4xl font-semibold text-[#6B3F8C]">1</span>
+                <span className="font-display text-4xl font-semibold text-[#7A52A0]">1</span>
                 <p className="text-xs text-[#7A6585] mt-1 uppercase tracking-wide">Lugar</p>
               </div>
             </div>
@@ -111,7 +111,7 @@ export default function HomePage() {
       <section className="py-20 md:py-28 px-4 bg-[#F0EBF7]">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-14">
-            <p className="text-xs uppercase tracking-[0.2em] text-[#6B3F8C] font-semibold mb-3">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#7A52A0] font-semibold mb-3">
               La experiencia
             </p>
             <h2 className="font-display text-4xl md:text-5xl text-[#1C0F2E]">
@@ -207,22 +207,22 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <p className="text-xs uppercase tracking-[0.2em] text-[#6B3F8C] font-semibold mb-4">
+              <p className="text-xs uppercase tracking-[0.2em] text-[#7A52A0] font-semibold mb-4">
                 La cocina
               </p>
               <h2 className="font-display text-4xl md:text-5xl text-[#1C0F2E] mb-6 leading-tight">
-                Platos que no<br />se improvisan
+                Para quienes saben<br />disfrutar de la mesa
               </h2>
               <p className="text-[#7A6585] leading-relaxed mb-4">
                 Cada receta lleva tiempo, técnica y producto. Los entrantes fritos que crujen,
                 los nigiris de salmón del día, las brochetas glaseadas con teriyaki. Nada de atajos.
               </p>
               <p className="text-[#7A6585] leading-relaxed mb-8">
-                La carta cambia cuando cambia la temporada. Aquí manda el producto, no el calendario.
+                Mantenemos la esencia, pero renovamos la experiencia. Siempre encontrarás algo nuevo fuera de carta.
               </p>
               <Link
                 href="/carta"
-                className="inline-flex items-center gap-2 bg-[#6B3F8C] text-white font-semibold px-7 py-3.5 rounded-full text-sm hover:bg-[#5a3378] transition-colors shadow-sm"
+                className="inline-flex items-center gap-2 bg-[#7A52A0] text-white font-semibold px-7 py-3.5 rounded-full text-sm hover:bg-[#5a3378] transition-colors shadow-sm"
               >
                 Ver carta completa
               </Link>
@@ -314,11 +314,11 @@ export default function HomePage() {
           </h2>
           <p className="text-[#7A6585] leading-relaxed mb-8">
             Reserva tu mesa online en segundos. Si prefieres llamar, estamos en el{" "}
-            <a href="tel:965951170" className="text-[#6B3F8C] font-medium hover:underline">
+            <a href="tel:965951170" className="text-[#7A52A0] font-medium hover:underline">
               965 951 170
             </a>.
           </p>
-          <ReservarButton className="bg-[#6B3F8C] hover:bg-[#5a3378] text-white font-semibold px-10 py-4 rounded-full text-sm tracking-wide shadow-md transition-colors">
+          <ReservarButton className="bg-[#7A52A0] hover:bg-[#5a3378] text-white font-semibold px-10 py-4 rounded-full text-sm tracking-wide shadow-md transition-colors">
             Reservar mesa
           </ReservarButton>
         </div>

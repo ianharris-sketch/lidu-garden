@@ -30,7 +30,7 @@ export default function Testimonials() {
     <div className="relative w-full max-w-3xl mx-auto px-10 md:px-14">
       <button
         onClick={prev}
-        className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white shadow-lg rounded-full flex items-center justify-center text-[#6B3F8C] hover:scale-110 hover:bg-[#F0EBF7] transition z-10 border border-[#E8D9F5]"
+        className="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white shadow-lg rounded-full flex items-center justify-center text-[#7A52A0] hover:scale-110 hover:bg-[#F0EBF7] transition z-10 border border-[#E8D9F5]"
         aria-label="Anterior"
       >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -50,7 +50,7 @@ export default function Testimonials() {
 
       <button
         onClick={next}
-        className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white shadow-lg rounded-full flex items-center justify-center text-[#6B3F8C] hover:scale-110 hover:bg-[#F0EBF7] transition z-10 border border-[#E8D9F5]"
+        className="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white shadow-lg rounded-full flex items-center justify-center text-[#7A52A0] hover:scale-110 hover:bg-[#F0EBF7] transition z-10 border border-[#E8D9F5]"
         aria-label="Siguiente"
       >
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,7 +64,7 @@ export default function Testimonials() {
             key={i}
             onClick={() => setCurrent(i)}
             className={`w-2.5 h-2.5 rounded-full transition-colors ${
-              i === current ? "bg-[#6B3F8C]" : "bg-[#E8D9F5]"
+              i === current ? "bg-[#7A52A0]" : "bg-[#E8D9F5]"
             }`}
             aria-label={`Ir a reseña ${i + 1}`}
           />

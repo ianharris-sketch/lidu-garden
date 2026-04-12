@@ -375,7 +375,7 @@ export default function CartaAccordion() {
               <button
                 key={section.id}
                 onClick={() => openAndScroll(section.id)}
-                className="px-4 py-1.5 rounded-full text-xs font-medium text-[#7A6585] hover:text-[#6B3F8C] hover:bg-[#F0EBF7] transition-colors whitespace-nowrap cursor-pointer"
+                className="px-4 py-1.5 rounded-full text-xs font-medium text-[#7A6585] hover:text-[#7A52A0] hover:bg-[#F0EBF7] transition-colors whitespace-nowrap cursor-pointer"
               >
                 {section.title}
               </button>
@@ -411,7 +411,7 @@ export default function CartaAccordion() {
                 </div>
                 <ChevronDown
                   size={20}
-                  className={`text-[#6B3F8C] shrink-0 transition-transform duration-300 ${
+                  className={`text-[#7A52A0] shrink-0 transition-transform duration-300 ${
                     isOpen ? "rotate-180" : ""
                   }`}
                 />
@@ -428,7 +428,7 @@ export default function CartaAccordion() {
                           className="flex items-center justify-between gap-4 py-3 border-b border-[#E8D9F5] last:border-0"
                         >
                           <p className="text-sm text-[#1C0F2E] leading-snug">{item.name}</p>
-                          <span className="font-semibold text-[#6B3F8C] text-sm shrink-0">
+                          <span className="font-semibold text-[#7A52A0] text-sm shrink-0">
                             {item.price} €
                           </span>
                         </div>
@@ -440,7 +440,7 @@ export default function CartaAccordion() {
                     <div className="space-y-7">
                       {section.subsections.map((sub) => (
                         <div key={sub.title}>
-                          <p className="text-xs uppercase tracking-[0.15em] text-[#6B3F8C] font-semibold mb-3 pb-1 border-b border-[#E8D9F5]">
+                          <p className="text-xs uppercase tracking-[0.15em] text-[#7A52A0] font-semibold mb-3 pb-1 border-b border-[#E8D9F5]">
                             {sub.title}
                           </p>
                           <div className="grid sm:grid-cols-2 gap-x-8">
@@ -450,7 +450,7 @@ export default function CartaAccordion() {
                                 className="flex items-center justify-between gap-4 py-3 border-b border-[#E8D9F5] last:border-0"
                               >
                                 <p className="text-sm text-[#1C0F2E] leading-snug">{item.name}</p>
-                                <span className="font-semibold text-[#6B3F8C] text-sm shrink-0">
+                                <span className="font-semibold text-[#7A52A0] text-sm shrink-0">
                                   {item.price} €
                                 </span>
                               </div>

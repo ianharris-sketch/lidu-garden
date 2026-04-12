@@ -152,7 +152,7 @@ export default function TallerSushiPage() {
       <section className="py-20 md:py-24 px-4 bg-[#F0EBF7]">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-14 items-center">
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-[#6B3F8C] font-semibold mb-3">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#7A52A0] font-semibold mb-3">
               Lo que vas a preparar
             </p>
             <h2 className="font-display text-4xl md:text-5xl text-[#1C0F2E] mb-6 leading-tight">
@@ -197,7 +197,7 @@ export default function TallerSushiPage() {
       <section id="reservar" className="py-20 md:py-24 px-4 bg-white">
         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-14 items-start">
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-[#6B3F8C] font-semibold mb-3">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#7A52A0] font-semibold mb-3">
               Reserva tu plaza
             </p>
             <h2 className="font-display text-4xl md:text-5xl text-[#1C0F2E] mb-6 leading-tight">
@@ -213,7 +213,7 @@ export default function TallerSushiPage() {
               <ul className="space-y-3">
                 {includes.map((item) => (
                   <li key={item} className="flex items-start gap-3">
-                    <Check size={16} className="text-[#6B3F8C] mt-0.5 shrink-0" />
+                    <Check size={16} className="text-[#7A52A0] mt-0.5 shrink-0" />
                     <span className="text-sm text-[#7A6585]">{item}</span>
                   </li>
                 ))}
@@ -282,7 +282,7 @@ export default function TallerSushiPage() {
               >
                 <summary className="flex justify-between items-center font-semibold text-[#1C0F2E] list-none select-none text-sm">
                   {f.q}
-                  <span className="text-2xl font-light text-[#6B3F8C] group-open:rotate-45 transition-transform duration-300">
+                  <span className="text-2xl font-light text-[#7A52A0] group-open:rotate-45 transition-transform duration-300">
                     +
                   </span>
                 </summary>
