@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Phone, Mail, MapPin, Clock, ExternalLink } from "lucide-react";
+import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import ReservarButton from "@/components/ReservarButton";
 
 export const metadata: Metadata = {
@@ -80,13 +80,13 @@ export default function ContactoPage() {
               </div>
             </div>
 
-            {/* Dirección */}
-            <div className="bg-white rounded-2xl p-6 shadow-sm border border-[#E8D9F5]">
-              <div className="flex items-start gap-4">
+            {/* Dirección + mapa */}
+            <div className="bg-white rounded-2xl overflow-hidden shadow-sm border border-[#E8D9F5]">
+              <div className="flex items-start gap-4 p-6 pb-4">
                 <div className="w-10 h-10 rounded-full bg-[#F0EBF7] flex items-center justify-center shrink-0">
                   <MapPin size={18} className="text-[#7A52A0]" />
                 </div>
-                <div>
+                <div className="flex-1 min-w-0">
                   <p className="text-xs uppercase tracking-[0.15em] text-[#7A6585] font-semibold mb-1">
                     Dónde estamos
                   </p>
@@ -95,11 +95,24 @@ export default function ContactoPage() {
                     href="https://www.google.com/maps/search/?api=1&query=Lidu+garden+Mutxamel+Alicante"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-[#7A52A0] hover:underline mt-1 inline-block"
+                    className="text-xs text-[#7A52A0] hover:underline mt-1 inline-flex items-center gap-1"
                   >
                     Abrir en Google Maps ↗
                   </a>
                 </div>
+              </div>
+              {/* Mapa integrado */}
+              <div className="h-48 w-full border-t border-[#E8D9F5]">
+                <iframe
+                  src="https://maps.google.com/maps?q=LiDu+Garden+Mutxamel+Alicante&z=15&output=embed"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Ubicación de LiDu Garden en Mutxamel, Alicante"
+                />
               </div>
             </div>
 
@@ -226,79 +239,6 @@ export default function ContactoPage() {
         </div>
       </section>
 
-      {/* Mapa flotante */}
-      <section className="pb-24 px-4 bg-[#FDFAF6]">
-        <div className="max-w-5xl mx-auto">
-
-          {/* Encabezado */}
-          <div className="text-center mb-10">
-            <p className="text-xs uppercase tracking-[0.2em] text-[#7A52A0] font-semibold mb-2">
-              Cómo llegar
-            </p>
-            <h2 className="font-display text-4xl md:text-5xl text-[#1C0F2E]">
-              Nos encontrarás en Mutxamel
-            </h2>
-          </div>
-
-          {/* Tarjeta flotante del mapa */}
-          <div className="rounded-3xl overflow-hidden shadow-2xl ring-1 ring-black/5">
-
-            {/* Barra superior de la tarjeta */}
-            <div className="bg-white px-6 py-4 flex items-center justify-between border-b border-[#E8D9F5]">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-[#F0EBF7] flex items-center justify-center">
-                  <MapPin size={15} className="text-[#7A52A0]" />
-                </div>
-                <div>
-                  <p className="text-sm font-semibold text-[#1C0F2E]">LiDu Garden</p>
-                  <p className="text-xs text-[#7A6585]">Mutxamel, Alicante</p>
-                </div>
-              </div>
-              <a
-                href="https://www.google.com/maps/search/?api=1&query=Lidu+garden+Mutxamel+Alicante"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-xs font-semibold text-[#7A52A0] hover:text-[#5a3378] transition-colors border border-[#E8D9F5] rounded-full px-4 py-2 hover:bg-[#F0EBF7]"
-              >
-                <ExternalLink size={12} />
-                Abrir en Maps
-              </a>
-            </div>
-
-            {/* El mapa */}
-            <div className="h-80 md:h-[420px] w-full">
-              <iframe
-                src="https://maps.google.com/maps?q=LiDu+Garden+Mutxamel+Alicante&z=15&output=embed"
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Ubicación de LiDu Garden en Mutxamel, Alicante"
-              />
-            </div>
-
-            {/* Barra inferior de la tarjeta */}
-            <div className="bg-white px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-t border-[#E8D9F5]">
-              <div className="flex items-center gap-5 text-xs text-[#7A6585]">
-                <span className="flex items-center gap-1.5">
-                  <Clock size={13} className="text-[#7A52A0]" />
-                  Mar – Dom · 12:30–16:30 y 20:00–23:45
-                </span>
-                <span className="hidden sm:flex items-center gap-1.5">
-                  <Phone size={13} className="text-[#7A52A0]" />
-                  965 951 170
-                </span>
-              </div>
-              <ReservarButton className="bg-[#7A52A0] hover:bg-[#5a3378] text-white font-semibold px-6 py-2.5 rounded-full text-xs transition-colors shrink-0">
-                Reservar mesa
-              </ReservarButton>
-            </div>
-
-          </div>
-        </div>
-      </section>
     </>
   );
 }
