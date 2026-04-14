@@ -37,7 +37,7 @@ export default function DatesasModal({ isOpen, onClose }: DatesasModalProps) {
       aria-modal="true"
       aria-label="Reservar mesa en LiDu Garden"
     >
-      <div className="bg-white rounded-2xl overflow-hidden w-full max-w-sm md:max-w-5xl shadow-2xl flex flex-col">
+      <div className="bg-white rounded-2xl overflow-hidden w-full max-w-sm md:max-w-[92vw] shadow-2xl flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-[#E8D9F5]">
           <div>
