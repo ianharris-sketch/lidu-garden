@@ -183,7 +183,7 @@ export default function TallerSushiPage() {
 
           <div className="relative h-80 md:h-[440px] rounded-3xl overflow-hidden shadow-xl rotate-1 hover:rotate-0 transition-all duration-500">
             <Image
-              src="/images/DSCF7945.png"
+              src="/images/DSCF7945-web.jpg"
               alt="Plato de sushi preparado en el taller"
               fill
               className="object-cover"

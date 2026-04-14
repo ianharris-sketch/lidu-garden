@@ -163,7 +163,7 @@ export default function HomePage() {
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
               <div className="relative h-48 overflow-hidden">
                 <Image
-                  src="/images/sushi-hecho.png"
+                  src="/images/sushi-hecho.jpg"
                   alt="Nigiri de salmón en LiDu Garden"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -183,7 +183,7 @@ export default function HomePage() {
             <div className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow group">
               <div className="relative h-48 overflow-hidden">
                 <Image
-                  src="/images/grupo-taller.png"
+                  src="/images/grupo-taller.jpg"
                   alt="Grupo disfrutando el taller de sushi en LiDu Garden"
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
@@ -276,7 +276,7 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-10 items-center">
           <div className="relative h-80 md:h-[460px] rounded-2xl overflow-hidden shadow-xl">
             <Image
-              src="/images/aprende-linda.png"
+              src="/images/aprende-linda.jpg"
               alt="Linda enseñando a hacer sushi en LiDu Garden"
               fill
               className="object-cover"
