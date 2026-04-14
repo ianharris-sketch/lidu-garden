@@ -5,6 +5,7 @@ import ReservarButton from "@/components/ReservarButton";
 import { Check, Phone, Mail, ChevronDown } from "lucide-react";
 
 type CourseGroup = { label: string; options: string[] };
+type IncludeItem = { name: string; a?: number[] };
 
 type MenuCard = {
   id: string;
@@ -15,10 +16,37 @@ type MenuCard = {
   priceNote?: string;
   description: string;
   courses?: CourseGroup[];
-  includes?: string[];
+  includes?: IncludeItem[];
   highlight: boolean;
   type: "reservar" | "grupo";
 };
+
+const allergenNames: Record<number, string> = {
+  1: "Gluten", 2: "Crustáceos", 3: "Huevos", 4: "Pescado",
+  5: "Cacahuetes", 6: "Soja", 7: "Lácteos", 8: "Frutos de cáscara",
+  9: "Apio", 10: "Mostaza", 11: "Sésamo", 12: "Moluscos",
+  13: "Altramuces", 14: "Sulfitos",
+};
+
+function AllergenBadges({ codes, dark }: { codes: number[]; dark?: boolean }) {
+  return (
+    <span className="inline-flex gap-0.5 ml-1.5 flex-wrap">
+      {codes.map((n) => (
+        <span
+          key={n}
+          title={allergenNames[n]}
+          className={`inline-flex items-center justify-center w-4 h-4 rounded-full text-[9px] font-semibold leading-none cursor-default ${
+            dark
+              ? "bg-white/20 text-white"
+              : "bg-[#F0EBF7] text-[#7A52A0]"
+          }`}
+        >
+          {n}
+        </span>
+      ))}
+    </span>
+  );
+}
 
 const menus: MenuCard[] = [
   {
@@ -83,13 +111,13 @@ const menus: MenuCard[] = [
     description:
       "Un viaje por la cocina del sur de China. Dim sum, arroz frito, pollo y los postres caseros de Linda.",
     includes: [
-      "Surtido de Dim Sum",
-      "Rollito de Verdura",
-      "Arroz Frito Tres Delicias",
-      "Pollo al Limón",
-      "Ternera con Salsa de Ostras",
-      "Pastel de Calabaza",
-      "Crepe Casero con Crema de Soja Roja",
+      { name: "Surtido de Dim Sum", a: [1,2,4] },
+      { name: "Rollito de Verdura", a: [1] },
+      { name: "Arroz Frito Tres Delicias", a: [3] },
+      { name: "Pollo al Limón", a: [1,3] },
+      { name: "Ternera con Salsa de Ostras", a: [6] },
+      { name: "Pastel de Calabaza" },
+      { name: "Crepe Casero con Crema de Soja Roja", a: [1,3,7] },
     ],
     highlight: false,
     type: "reservar",
@@ -104,13 +132,13 @@ const menus: MenuCard[] = [
     description:
       "Sushi, gyozas, arroz japonés y solomillo teriyaki. Para los que no se conforman con media experiencia.",
     includes: [
-      "California Roll",
-      "Nigiri de Salmón",
-      "Nigiri de Pez de Mantequilla con Trufa",
-      "Gioza Empanadilla de Pollo y Verdura",
-      "Arroz Frito Japonés",
-      "Solomillo de Ternera con Salsa Teriyaki",
-      "Mochi Pastel Japonés",
+      { name: "California Roll", a: [2,3,4] },
+      { name: "Nigiri de Salmón", a: [4] },
+      { name: "Nigiri de Pez de Mantequilla con Trufa", a: [4] },
+      { name: "Gioza Empanadilla de Pollo y Verdura", a: [1] },
+      { name: "Arroz Frito Japonés", a: [2,3,6] },
+      { name: "Solomillo de Ternera con Salsa Teriyaki", a: [6,11] },
+      { name: "Mochi Pastel Japonés", a: [7] },
     ],
     highlight: false,
     type: "reservar",
@@ -125,12 +153,12 @@ const menus: MenuCard[] = [
     description:
       "Sin carne, sin pescado, con todo el sabor. Platos que gustan a todo el mundo, no solo a quien no come carne.",
     includes: [
-      "Rollito de Verdura",
-      "Maki de Aguacate (vegan)",
-      "Arroz Frito con Huevo y Verdura",
-      "Tofu con Salsa",
-      "Tirabeques Salteados con Hongo de Madera",
-      "Pudding de Mango Casero o Helado de Matcha",
+      { name: "Rollito de Verdura", a: [1] },
+      { name: "Maki de Aguacate (vegan)" },
+      { name: "Arroz Frito con Huevo y Verdura", a: [3] },
+      { name: "Tofu con Salsa", a: [6] },
+      { name: "Tirabeques Salteados con Hongo de Madera" },
+      { name: "Pudding de Mango Casero o Helado de Matcha", a: [7] },
     ],
     highlight: false,
     type: "reservar",
@@ -145,12 +173,12 @@ const menus: MenuCard[] = [
     description:
       "Lo mejor de LiDu en una mesa. Saquitos de fortuna, gyozas, pato con ciruela, langostinos al curry rojo y los postres de siempre.",
     includes: [
-      "Saquito de Fortuna",
-      "Gioza Empanadilla de Pollo y Verdura",
-      "Arroz Frito Especial Shanghai",
-      "Pato Asado con Salsa de Ciruela y Jengibre",
-      "Langostino Salteado con Curry Rojo Thai",
-      "Tiramisú Casero o Mini Rollito con Helado de Chocolate",
+      { name: "Saquito de Fortuna", a: [1,4,7] },
+      { name: "Gioza Empanadilla de Pollo y Verdura", a: [1] },
+      { name: "Arroz Frito Especial Shanghai", a: [2,3] },
+      { name: "Pato Asado con Salsa de Ciruela y Jengibre", a: [1,6] },
+      { name: "Langostino Salteado con Curry Rojo Thai", a: [2] },
+      { name: "Tiramisú Casero o Mini Rollito con Helado de Chocolate", a: [1,3,7] },
     ],
     highlight: true,
     type: "reservar",
@@ -163,10 +191,10 @@ const menus: MenuCard[] = [
     description:
       "Cumpleaños, reuniones familiares, empresas, despedidas. Sin carta fija: diseñamos el menú contigo según el grupo, preferencias y presupuesto.",
     includes: [
-      "Menú personalizado según el grupo",
-      "Adaptable a alergias e intolerancias",
-      "Posibilidad de incluir sushi",
-      "Reserva anticipada recomendada",
+      { name: "Menú personalizado según el grupo" },
+      { name: "Adaptable a alergias e intolerancias" },
+      { name: "Posibilidad de incluir sushi" },
+      { name: "Reserva anticipada recomendada" },
     ],
     highlight: false,
     type: "grupo",
@@ -276,7 +304,7 @@ function MenuCardContent({ menu }: { menu: MenuCard }) {
         {menu.includes && (
           <ul className="space-y-2.5 mb-8 flex-1">
             {menu.includes.map((item) => (
-              <li key={item} className="flex items-start gap-2.5">
+              <li key={item.name} className="flex items-start gap-2.5">
                 <Check
                   size={15}
                   className={`mt-0.5 shrink-0 ${
@@ -284,9 +312,10 @@ function MenuCardContent({ menu }: { menu: MenuCard }) {
                   }`}
                 />
                 <span
-                  className={`text-sm ${menu.highlight ? "text-white/80" : "text-[#1C0F2E]"}`}
+                  className={`text-sm flex items-center flex-wrap ${menu.highlight ? "text-white/80" : "text-[#1C0F2E]"}`}
                 >
-                  {item}
+                  {item.name}
+                  {item.a && <AllergenBadges codes={item.a} dark={menu.highlight} />}
                 </span>
               </li>
             ))}

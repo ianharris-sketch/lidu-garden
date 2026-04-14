@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { ChevronDown } from "lucide-react";
 
-type MenuItem = { name: string; price: string };
+type MenuItem = { name: string; price: string; a?: number[] };
 type SubSection = { title: string; items: MenuItem[] };
 type Section = {
   id: string;
@@ -13,205 +13,190 @@ type Section = {
   subsections?: SubSection[];
 };
 
+export const allergenNames: Record<number, string> = {
+  1: "Gluten", 2: "Crustáceos", 3: "Huevos", 4: "Pescado",
+  5: "Cacahuetes", 6: "Soja", 7: "Lácteos", 8: "Frutos de cáscara",
+  9: "Apio", 10: "Mostaza", 11: "Sésamo", 12: "Moluscos",
+  13: "Altramuces", 14: "Sulfitos",
+};
+
 const menuSections: Section[] = [
   {
-    id: "ensaladas",
-    title: "Ensaladas",
-    subtitle: "Frescas y ligeras",
+    id: "ensaladas", title: "Ensaladas", subtitle: "Frescas y ligeras",
     items: [
-      { name: "Ensalada Japonesa", price: "14,50" },
-      { name: "Ensalada de Tres Algas con Gambas", price: "9,95" },
-      { name: "Ensalada de la Casa", price: "8,95" },
+      { name: "Ensalada Japonesa", price: "14,50", a: [2,4,6,12] },
+      { name: "Ensalada de Tres Algas con Gambas", price: "9,95", a: [2,3,12] },
+      { name: "Ensalada de la Casa", price: "8,95", a: [3,12] },
     ],
   },
   {
-    id: "sopas",
-    title: "Sopas",
-    subtitle: "Para entrar en calor",
+    id: "sopas", title: "Sopas", subtitle: "Para entrar en calor",
     items: [
-      { name: "Sopa Miso", price: "4,95" },
-      { name: "Sopa Agripicante Estilo Beijing", price: "4,95" },
-      { name: "Sopa Wonton Pollo & Gamba", price: "5,25" },
-      { name: "Sopa Cremosa de Coco", price: "7,95" },
-      { name: "Sopa Thai Tom-Yum-Kon", price: "8,95" },
+      { name: "Sopa Miso", price: "4,95", a: [4,6] },
+      { name: "Sopa Agripicante Estilo Beijing", price: "4,95", a: [3,6,12] },
+      { name: "Sopa Wonton Pollo & Gamba", price: "5,25", a: [1,2,6] },
+      { name: "Sopa Cremosa de Coco", price: "7,95", a: [2] },
+      { name: "Sopa Thai Tom-Yum-Kon", price: "8,95", a: [2] },
     ],
   },
   {
-    id: "entrantes",
-    title: "Entrantes",
-    subtitle: "Para compartir",
+    id: "entrantes", title: "Entrantes", subtitle: "Para compartir",
     items: [
-      { name: "Pan Chino Frito", price: "2,20" },
-      { name: "Alga Frita", price: "6,50" },
-      { name: "Pan de Gamba", price: "3,95" },
-      { name: "Tempura de Verdura", price: "7,95" },
-      { name: "Tempura de Marisco & Verdura", price: "13,95" },
-      { name: "Tempura de Langostino", price: "13,95" },
-      { name: "Pechuga de Pollo Relleno de Queso (4 ud.)", price: "6,00" },
-      { name: "Rollito Estilo Thai (2 ud.)", price: "6,00" },
-      { name: "Langostino Cubierto de Pan Rallado y Sésamo (6 ud.)", price: "9,95" },
-      { name: "Rollito Vietnamita (2 ud.)", price: "5,50" },
-      { name: "Minirollito de Gamba (4 ud.)", price: "6,40" },
-      { name: "Gioza Empanadilla de Carne y Verdura (4 ud.)", price: "5,00" },
-      { name: "Saquito de Fortuna (4 ud.)", price: "6,40" },
-      { name: "Brocheta de Pollo Yakitori (2 ud.)", price: "5,40" },
-      { name: "Bola de Dragón", price: "5,00" },
-      { name: "Surtido de Dim Sum", price: "6,50" },
+      { name: "Pan Chino Frito", price: "2,20", a: [1,7] },
+      { name: "Alga Frita", price: "6,50", a: [11] },
+      { name: "Pan de Gamba", price: "3,95", a: [2] },
+      { name: "Tempura de Verdura", price: "7,95", a: [1] },
+      { name: "Tempura de Marisco & Verdura", price: "13,95", a: [1,2] },
+      { name: "Tempura de Langostino", price: "13,95", a: [1,2] },
+      { name: "Pechuga de Pollo Relleno de Queso (4 ud.)", price: "6,00", a: [1,3,7] },
+      { name: "Rollito Estilo Thai (2 ud.)", price: "6,00", a: [1] },
+      { name: "Langostino Cubierto de Pan Rallado y Sésamo (6 ud.)", price: "9,95", a: [1,2,3] },
+      { name: "Rollito Vietnamita (2 ud.)", price: "5,50", a: [1] },
+      { name: "Minirollito de Gamba (4 ud.)", price: "6,40", a: [1,2] },
+      { name: "Gioza Empanadilla de Carne y Verdura (4 ud.)", price: "5,00", a: [1] },
+      { name: "Saquito de Fortuna (4 ud.)", price: "6,40", a: [1,4,7] },
+      { name: "Brocheta de Pollo Yakitori (2 ud.)", price: "5,40", a: [6,11] },
+      { name: "Bola de Dragón", price: "5,00", a: [1] },
+      { name: "Surtido de Dim Sum", price: "6,50", a: [1,2,4] },
     ],
   },
   {
-    id: "pato",
-    title: "Pato",
-    subtitle: "Especialidad de la casa",
+    id: "pato", title: "Pato", subtitle: "Especialidad de la casa",
     items: [
-      { name: "Pato Laqueado Pekín (entero)", price: "69,00" },
-      { name: "½ Pato Laqueado Pekín", price: "36,00" },
-      { name: "Ración de Pato Laqueado Pekín", price: "18,50" },
-      { name: "Pato Asado Estilo Cantón", price: "14,50" },
-      { name: "Pato Asado con Salsa de Naranja", price: "16,95" },
-      { name: "Pato Salteado con Piña y Salsa de Curry Rojo", price: "15,50" },
-      { name: "Pato Asado Estilo Osaka", price: "13,95" },
-      { name: "Pato Asado con Salsa de Ciruela y Jengibre (½)", price: "16,95" },
-      { name: "Pato Asado con Salsa de Ciruela y Jengibre", price: "18,95" },
+      { name: "Pato Laqueado Pekín (entero)", price: "69,00", a: [1] },
+      { name: "½ Pato Laqueado Pekín", price: "36,00", a: [1] },
+      { name: "Ración de Pato Laqueado Pekín", price: "18,50", a: [1] },
+      { name: "Pato Asado Estilo Cantón", price: "14,50", a: [1] },
+      { name: "Pato Asado con Salsa de Naranja", price: "16,95", a: [1] },
+      { name: "Pato Salteado con Piña y Salsa de Curry Rojo", price: "15,50", a: [1,6] },
+      { name: "Pato Asado Estilo Osaka", price: "13,95", a: [1,11] },
+      { name: "Pato Asado con Salsa de Ciruela y Jengibre (½)", price: "16,95", a: [1,6] },
+      { name: "Pato Asado con Salsa de Ciruela y Jengibre", price: "18,95", a: [1,6] },
     ],
   },
   {
-    id: "ternera",
-    title: "Ternera",
-    subtitle: "Platos principales",
+    id: "ternera", title: "Ternera", subtitle: "Platos principales",
     items: [
-      { name: "Ternera con Salsa de Ostras", price: "8,50" },
-      { name: "Ternera con Setas Chinas y Bambú", price: "9,25" },
-      { name: "Ternera Crujiente con Salsa Agridulce", price: "9,25" },
-      { name: "Ternera Salteada con Verduras y Salsa de Curry", price: "11,95" },
-      { name: "Solomillo de Ternera con Salsa Teriyaki", price: "15,50" },
-      { name: "Solomillo de Ternera con Salsa de Ciruela", price: "16,50" },
+      { name: "Ternera con Salsa de Ostras", price: "8,50", a: [6] },
+      { name: "Ternera con Setas Chinas y Bambú", price: "9,25", a: [6] },
+      { name: "Ternera Crujiente con Salsa Agridulce", price: "9,25", a: [6] },
+      { name: "Ternera Salteada con Verduras y Salsa de Curry", price: "11,95", a: [6,11] },
+      { name: "Solomillo de Ternera con Salsa Teriyaki", price: "15,50", a: [6,11] },
+      { name: "Solomillo de Ternera con Salsa de Ciruela", price: "16,50", a: [6] },
     ],
   },
   {
-    id: "pollo",
-    title: "Pollo",
-    subtitle: "Platos principales",
+    id: "pollo", title: "Pollo", subtitle: "Platos principales",
     items: [
-      { name: "Tiras de Pollo Almendrado", price: "8,50" },
-      { name: "Pechuga de Pollo Rebozado con Salsa de Limón", price: "8,50" },
-      { name: "Dados de Pollo con Verdura y Curry Verde", price: "11,95" },
-      { name: "Pollo con Bambú y Setas Chinas", price: "8,95" },
-      { name: "Pollo Teppanyaki con Puerros", price: "10,95" },
-      { name: "Dados de Pollo con Brócoli y Champiñones", price: "9,50" },
-      { name: "Delicias de Pollo Agridulce con Sésamo", price: "9,75" },
-      { name: "Dado de Pollo con Cacahuete y Picante", price: "8,50" },
+      { name: "Tiras de Pollo Almendrado", price: "8,50", a: [1,8] },
+      { name: "Pechuga de Pollo Rebozado con Salsa de Limón", price: "8,50", a: [1,3] },
+      { name: "Dados de Pollo con Verdura y Curry Verde", price: "11,95", a: [6] },
+      { name: "Pollo con Bambú y Setas Chinas", price: "8,95", a: [6] },
+      { name: "Pollo Teppanyaki con Puerros", price: "10,95", a: [6] },
+      { name: "Dados de Pollo con Brócoli y Champiñones", price: "9,50", a: [6] },
+      { name: "Delicias de Pollo Agridulce con Sésamo", price: "9,75", a: [6,11] },
+      { name: "Dado de Pollo con Cacahuete y Picante", price: "8,50", a: [5,6] },
     ],
   },
   {
-    id: "acompañamientos",
-    title: "Acompañamientos",
-    subtitle: "Arroces, fideos y más",
+    id: "acompañamientos", title: "Acompañamientos", subtitle: "Arroces, fideos y más",
     items: [
-      { name: "Arroz Frito Tres Delicias", price: "5,95" },
-      { name: "Arroz Frito Lidu", price: "7,50" },
-      { name: "Arroz Frito Japonés", price: "8,95" },
-      { name: "Arroz Frito Thai", price: "7,95" },
-      { name: "Arroz Frito Especial Shanghai", price: "7,95" },
-      { name: "Kubak de Gambas", price: "9,95" },
-      { name: "Tallarines Teppanyaki con Gambas y Verdura", price: "8,50" },
-      { name: "Arroz Frito con Curry, Piña y Gambas", price: "7,95" },
-      { name: "Tallarines de Soja Frito Tres Delicias", price: "8,50" },
-      { name: "Tallarines Caseros de Mi Madre", price: "9,50" },
-      { name: "Pai-Tai Tallarines de Arroz con Ternera Estilo Thai", price: "8,95" },
-      { name: "Fideo de Arroz Frito con Gambas y Verduras", price: "8,50" },
-      { name: "Fideo de Arroz Frito Estilo Singapur", price: "8,50" },
-      { name: "Cangrejos Fritos con Pasta de Arroz", price: "10,95" },
-      { name: "Albóndigas Estilo Shanghai", price: "8,50" },
-      { name: "Albóndigas de Cerdo Agridulce con Piña", price: "8,25" },
-      { name: "Tartar de Salmón con Trufa y Aguacate", price: "15,95" },
-      { name: "Tofu con Salsa", price: "7,95" },
+      { name: "Arroz Frito Tres Delicias", price: "5,95", a: [3] },
+      { name: "Arroz Frito Lidu", price: "7,50", a: [2,3,6] },
+      { name: "Arroz Frito Japonés", price: "8,95", a: [2,3,6] },
+      { name: "Arroz Frito Thai", price: "7,95", a: [3] },
+      { name: "Arroz Frito Especial Shanghai", price: "7,95", a: [2,3] },
+      { name: "Kubak de Gambas", price: "9,95", a: [2,6] },
+      { name: "Tallarines Teppanyaki con Gambas y Verdura", price: "8,50", a: [1,2,6] },
+      { name: "Arroz Frito con Curry, Piña y Gambas", price: "7,95", a: [2] },
+      { name: "Tallarines de Soja Frito Tres Delicias", price: "8,50", a: [2,3,6] },
+      { name: "Tallarines Caseros de Mi Madre", price: "9,50", a: [1,2,6] },
+      { name: "Pai-Tai Tallarines de Arroz con Ternera Estilo Thai", price: "8,95", a: [3,6] },
+      { name: "Fideo de Arroz Frito con Gambas y Verduras", price: "8,50", a: [2,3] },
+      { name: "Fideo de Arroz Frito Estilo Singapur", price: "8,50", a: [2,3] },
+      { name: "Cangrejos Fritos con Pasta de Arroz", price: "10,95", a: [2,3,6] },
+      { name: "Albóndigas Estilo Shanghai", price: "8,50", a: [6] },
+      { name: "Albóndigas de Cerdo Agridulce con Piña", price: "8,25", a: [1,3,11] },
+      { name: "Tartar de Salmón con Trufa y Aguacate", price: "15,95", a: [4,6] },
+      { name: "Tofu con Salsa", price: "7,95", a: [6] },
       { name: "Tirabeques Salteados con Hongo de Madera", price: "8,50" },
       { name: "Verduras al Wok", price: "7,25" },
     ],
   },
   {
-    id: "sushi",
-    title: "Sushi & Sashimi",
-    subtitle: "Japonés del día",
+    id: "sushi", title: "Sushi & Sashimi", subtitle: "Japonés del día",
     subsections: [
       {
         title: "Sushi",
         items: [
-          { name: "Sushi de Salmón", price: "5,50" },
-          { name: "Sushi de Atún", price: "6,00" },
-          { name: "Sushi de Gambas", price: "5,40" },
-          { name: "Sushi de Anguila", price: "6,00" },
-          { name: "Sushi de Pez de Mantequilla con Trufa", price: "6,50" },
-          { name: "Sushi Variado", price: "18,00" },
+          { name: "Sushi de Salmón", price: "5,50", a: [4] },
+          { name: "Sushi de Atún", price: "6,00", a: [4] },
+          { name: "Sushi de Gambas", price: "5,40", a: [2] },
+          { name: "Sushi de Anguila", price: "6,00", a: [4] },
+          { name: "Sushi de Pez de Mantequilla con Trufa", price: "6,50", a: [4] },
+          { name: "Sushi Variado", price: "18,00", a: [2,4] },
         ],
       },
       {
         title: "Maki",
         items: [
-          { name: "Maki de Salmón", price: "6,20" },
-          { name: "Maki de Atún", price: "6,50" },
-          { name: "Maki de Surimi, Pepino o Aguacate", price: "5,50" },
-          { name: "Maki de Anguila con Aguacate", price: "8,50" },
-          { name: "Sésamo Roll", price: "8,95" },
-          { name: "California Roll", price: "10,95" },
-          { name: "Gambas Roll", price: "7,95" },
+          { name: "Maki de Salmón", price: "6,20", a: [4] },
+          { name: "Maki de Atún", price: "6,50", a: [4] },
+          { name: "Maki de Surimi, Pepino o Aguacate", price: "5,50", a: [2] },
+          { name: "Maki de Anguila con Aguacate", price: "8,50", a: [4,6] },
+          { name: "Sésamo Roll", price: "8,95", a: [2,3,11] },
+          { name: "California Roll", price: "10,95", a: [2,3,4] },
+          { name: "Gambas Roll", price: "7,95", a: [2,3,11] },
         ],
       },
       {
         title: "Sashimi",
         items: [
-          { name: "Sashimi de Salmón", price: "9,90" },
-          { name: "Sashimi de Atún (6 cortes)", price: "12,00" },
-          { name: "Sashimi Variado (9 cortes)", price: "14,00" },
-          { name: "Sashimi y Sushi Variado (15 ud.)", price: "21,00" },
+          { name: "Sashimi de Salmón", price: "9,90", a: [4] },
+          { name: "Sashimi de Atún (6 cortes)", price: "12,00", a: [4] },
+          { name: "Sashimi Variado (9 cortes)", price: "14,00", a: [4] },
+          { name: "Sashimi y Sushi Variado (15 ud.)", price: "21,00", a: [2,3,4] },
         ],
       },
     ],
   },
   {
-    id: "pescados",
-    title: "Pescados y Mariscos",
-    subtitle: "Del mar",
+    id: "pescados", title: "Pescados y Mariscos", subtitle: "Del mar",
     items: [
-      { name: "Pescado al Vapor Estilo Thai", price: "15,95" },
-      { name: "Salmón con Salsa Teriyaki", price: "13,95" },
-      { name: "Langostino Salteado con Brócoli y Champiñones", price: "13,95" },
-      { name: "Langostino Salteado con Verduras y Curry Rojo Thai", price: "13,95" },
-      { name: "Langostino Salteado con Crema de Coco", price: "13,95" },
-      { name: "Langostino con Teriyaki Salsa", price: "13,95" },
-      { name: "Langostino Salteado con Albahaca", price: "13,95" },
-      { name: "Langostino Salteado con Bambú y Setas Chinas", price: "13,95" },
+      { name: "Pescado al Vapor Estilo Thai", price: "15,95", a: [2,4,6] },
+      { name: "Salmón con Salsa Teriyaki", price: "13,95", a: [2,6,11] },
+      { name: "Langostino Salteado con Brócoli y Champiñones", price: "13,95", a: [2] },
+      { name: "Langostino Salteado con Verduras y Curry Rojo Thai", price: "13,95", a: [2] },
+      { name: "Langostino Salteado con Crema de Coco", price: "13,95", a: [2] },
+      { name: "Langostino con Teriyaki Salsa", price: "13,95", a: [2,6,11] },
+      { name: "Langostino Salteado con Albahaca", price: "13,95", a: [2] },
+      { name: "Langostino Salteado con Bambú y Setas Chinas", price: "13,95", a: [2,6] },
     ],
   },
   {
-    id: "postres",
-    title: "Postres",
-    subtitle: "Para terminar bien",
+    id: "postres", title: "Postres", subtitle: "Para terminar bien",
     items: [
       { name: "Pastel de Calabaza", price: "5,20" },
-      { name: "Mini Rollito con Helado de Chocolate", price: "7,90" },
-      { name: "Tiramisú Casero", price: "5,95" },
-      { name: "Crepe Casero con Crema de Soja Roja", price: "5,50" },
-      { name: "Crepe Relleno de Nata y Frutas", price: "5,20" },
-      { name: "Leche Frita con Helado de Sésamo", price: "7,50" },
-      { name: "Plátano Frito con Coco Rallado", price: "5,95" },
-      { name: "Pudding de Mango Casero", price: "4,95" },
-      { name: "Bola de Sésamo Frito", price: "3,95" },
-      { name: "Mochi Pastel Japonés (2 ud.)", price: "5,50" },
-      { name: "Trufa de Té Verde (4 ud.)", price: "5,20" },
+      { name: "Mini Rollito con Helado de Chocolate", price: "7,90", a: [1,3,7] },
+      { name: "Tiramisú Casero", price: "5,95", a: [1,7] },
+      { name: "Crepe Casero con Crema de Soja Roja", price: "5,50", a: [1,3,7] },
+      { name: "Crepe Relleno de Nata y Frutas", price: "5,20", a: [1,3,7] },
+      { name: "Leche Frita con Helado de Sésamo", price: "7,50", a: [3,7,11] },
+      { name: "Plátano Frito con Coco Rallado", price: "5,95", a: [3] },
+      { name: "Pudding de Mango Casero", price: "4,95", a: [7] },
+      { name: "Bola de Sésamo Frito", price: "3,95", a: [11] },
+      { name: "Mochi Pastel Japonés (2 ud.)", price: "5,50", a: [7] },
+      { name: "Trufa de Té Verde (4 ud.)", price: "5,20", a: [7] },
       { name: "Lychees", price: "3,95" },
-      { name: "Trufa de Sake", price: "5,20" },
-      { name: "Helado Frito con Miel", price: "5,50" },
-      { name: "Helado Frito Flambeado", price: "6,50" },
-      { name: "Bola de Helado", price: "3,50" },
-      { name: "Bola de Helado Especial", price: "4,50" },
+      { name: "Trufa de Sake", price: "5,20", a: [7] },
+      { name: "Helado Frito con Miel", price: "5,50", a: [1,3,7,11] },
+      { name: "Helado Frito Flambeado", price: "6,50", a: [1,3,7,11] },
+      { name: "Bola de Helado", price: "3,50", a: [7] },
+      { name: "Bola de Helado Especial", price: "4,50", a: [7] },
     ],
   },
   {
-    id: "vinos",
-    title: "Vinos",
-    subtitle: "Nuestra selección",
+    id: "vinos", title: "Vinos", subtitle: "Nuestra selección",
     subsections: [
       {
         title: "Ribera del Duero Tinto",
@@ -237,7 +222,7 @@ const menuSections: Section[] = [
         items: [
           { name: "Habla del Silencio", price: "21,95" },
           { name: "Juan Gil Crianza", price: "22,50" },
-          { name: "Lambrusco Tinto", price: "10,50" },
+          { name: "Lambrusco Tinto", price: "10,50", a: [14] },
           { name: "Honoro Vera", price: "15,50" },
         ],
       },
@@ -290,7 +275,7 @@ const menuSections: Section[] = [
       {
         title: "Vino Rosado",
         items: [
-          { name: "Lambrusco Rosado", price: "10,50" },
+          { name: "Lambrusco Rosado", price: "10,50", a: [14] },
           { name: "Homenaje", price: "11,95" },
           { name: "Muga Rosé", price: "19,95" },
           { name: "Protos", price: "15,95" },
@@ -301,9 +286,7 @@ const menuSections: Section[] = [
     ],
   },
   {
-    id: "bebidas",
-    title: "Bebidas",
-    subtitle: "Para acompañar",
+    id: "bebidas", title: "Bebidas", subtitle: "Para acompañar",
     subsections: [
       {
         title: "Refrescos",
@@ -327,10 +310,10 @@ const menuSections: Section[] = [
         items: [
           { name: "Café Solo", price: "2,00" },
           { name: "Café Cortado", price: "2,25" },
-          { name: "Café con Leche", price: "2,50" },
+          { name: "Café con Leche", price: "2,50", a: [7] },
           { name: "Café Descafeinado", price: "2,50" },
-          { name: "Café Bombón", price: "2,25" },
-          { name: "Cappuccino", price: "2,95" },
+          { name: "Café Bombón", price: "2,25", a: [7] },
+          { name: "Cappuccino", price: "2,95", a: [7] },
           { name: "Carajillo", price: "2,95" },
           { name: "Carajillo Quemado", price: "3,95" },
           { name: "Infusiones", price: "1,95" },
@@ -343,17 +326,30 @@ const menuSections: Section[] = [
   },
 ];
 
+function AllergenBadges({ codes }: { codes: number[] }) {
+  return (
+    <span className="inline-flex gap-0.5 ml-1.5 flex-wrap">
+      {codes.map((n) => (
+        <span
+          key={n}
+          title={allergenNames[n]}
+          className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-[#F0EBF7] text-[#7A52A0] text-[9px] font-semibold leading-none cursor-default"
+        >
+          {n}
+        </span>
+      ))}
+    </span>
+  );
+}
+
 export default function CartaAccordion() {
   const [openSections, setOpenSections] = useState<Set<string>>(new Set(["entrantes"]));
 
   const toggle = (id: string) => {
     setOpenSections((prev) => {
       const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-      } else {
-        next.add(id);
-      }
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
       return next;
     });
   };
@@ -396,7 +392,6 @@ export default function CartaAccordion() {
                 i % 2 === 0 ? "bg-white" : "bg-[#F0EBF7]"
               }`}
             >
-              {/* Section header — clickable */}
               <button
                 onClick={() => toggle(section.id)}
                 className="w-full flex items-center justify-between px-6 md:px-10 py-5 text-left group"
@@ -411,13 +406,10 @@ export default function CartaAccordion() {
                 </div>
                 <ChevronDown
                   size={20}
-                  className={`text-[#7A52A0] shrink-0 transition-transform duration-300 ${
-                    isOpen ? "rotate-180" : ""
-                  }`}
+                  className={`text-[#7A52A0] shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
                 />
               </button>
 
-              {/* Dishes — collapsible */}
               {isOpen && (
                 <div className="px-6 md:px-10 pb-8">
                   {section.items && (
@@ -427,7 +419,10 @@ export default function CartaAccordion() {
                           key={item.name}
                           className="flex items-center justify-between gap-4 py-3 border-b border-[#E8D9F5] last:border-0"
                         >
-                          <p className="text-sm text-[#1C0F2E] leading-snug">{item.name}</p>
+                          <p className="text-sm text-[#1C0F2E] leading-snug flex items-center flex-wrap">
+                            {item.name}
+                            {item.a && <AllergenBadges codes={item.a} />}
+                          </p>
                           <span className="font-semibold text-[#7A52A0] text-sm shrink-0">
                             {item.price} €
                           </span>
@@ -449,7 +444,10 @@ export default function CartaAccordion() {
                                 key={item.name}
                                 className="flex items-center justify-between gap-4 py-3 border-b border-[#E8D9F5] last:border-0"
                               >
-                                <p className="text-sm text-[#1C0F2E] leading-snug">{item.name}</p>
+                                <p className="text-sm text-[#1C0F2E] leading-snug flex items-center flex-wrap">
+                                  {item.name}
+                                  {item.a && <AllergenBadges codes={item.a} />}
+                                </p>
                                 <span className="font-semibold text-[#7A52A0] text-sm shrink-0">
                                   {item.price} €
                                 </span>

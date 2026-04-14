@@ -25,23 +25,34 @@ export default function MenusPage() {
       {/* Interactive menus */}
       <MenusClient />
 
-      {/* Nota alérgenos */}
-      <section className="py-12 px-4 bg-[#F0EBF7]">
-        <div className="max-w-2xl mx-auto text-center">
-          <p className="text-sm text-[#7A6585] leading-relaxed">
-            Si tienes alguna alergia o intolerancia alimentaria, consúltanos antes de pedir.
-            Adaptamos los platos siempre que sea posible.{" "}
-            <a href="tel:965951170" className="text-[#7A52A0] font-medium hover:underline">
-              965 951 170
-            </a>{" "}
-            ·{" "}
-            <a
-              href="mailto:info@lidugarden.com"
-              className="text-[#7A52A0] font-medium hover:underline"
-            >
-              info@lidugarden.com
-            </a>
-          </p>
+      {/* Allergen legend */}
+      <section className="px-4 pb-16 bg-[#FDFAF6]">
+        <div className="max-w-5xl mx-auto">
+          <div className="rounded-2xl bg-[#F0EBF7] px-6 md:px-10 py-8">
+            <p className="text-xs uppercase tracking-[0.2em] text-[#7A52A0] font-semibold mb-1">
+              Información de alérgenos
+            </p>
+            <p className="text-sm text-[#7A6585] mb-5 leading-relaxed">
+              Los números junto a cada plato indican los alérgenos presentes según el Reglamento Europeo 1169/2011.
+              Si tienes alguna alergia o intolerancia, consúltanos antes de pedir —{" "}
+              <a href="tel:965951170" className="text-[#7A52A0] font-medium hover:underline">965 951 170</a>.
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2">
+              {([
+                [1, "Gluten"], [2, "Crustáceos"], [3, "Huevos"], [4, "Pescado"],
+                [5, "Cacahuetes"], [6, "Soja"], [7, "Lácteos"], [8, "Frutos de cáscara"],
+                [9, "Apio"], [10, "Mostaza"], [11, "Sésamo"], [12, "Moluscos"],
+                [13, "Altramuces"], [14, "Sulfitos"],
+              ] as [number, string][]).map(([n, name]) => (
+                <div key={n} className="flex items-center gap-2">
+                  <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[#7A52A0] text-white text-[10px] font-bold shrink-0">
+                    {n}
+                  </span>
+                  <span className="text-xs text-[#1C0F2E] leading-tight">{name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </>
