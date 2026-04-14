@@ -114,14 +114,14 @@ export default function Footer() {
             © {new Date().getFullYear()} LiDu Garden · Todos los derechos reservados
           </p>
           <p className="text-xs text-white/25">
-            Built with Claude Web Builder by{" "}
+            Hecho por{" "}
             <a
-              href="https://tododeia.com"
+              href="https://beloga.es"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-white/40 transition-colors underline underline-offset-2"
             >
-              Tododeia
+              BELOGA
             </a>
           </p>
         </div>
