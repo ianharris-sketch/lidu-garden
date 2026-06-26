@@ -1,0 +1,79 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* LiDu Garden brand colors */
+  --background: #fdfaf6;
+  --foreground: #1c0f2e;
+  --card: #ffffff;
+  --card-foreground: #1c0f2e;
+  --popover: #ffffff;
+  --popover-foreground: #1c0f2e;
+  --primary: #7a52a0;
+  --primary-foreground: #ffffff;
+  --secondary: #f0ebf7;
+  --secondary-foreground: #1c0f2e;
+  --muted: #e8d9f5;
+  --muted-foreground: #7a6585;
+  --accent: #c8973d;
+  --accent-foreground: #ffffff;
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: #e0d5ee;
+  --input: #e0d5ee;
+  --ring: #7a52a0;
+  --radius: 0.75rem;
+
+  /* Mesa status colors */
+  --mesa-vacia: #f0ebf7;
+  --mesa-vacia-border: #d4c5e8;
+  --mesa-pedido: #fef3c7;
+  --mesa-pedido-border: #f59e0b;
+  --mesa-lista: #d1fae5;
+  --mesa-lista-border: #10b981;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-destructive: var(--destructive);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-heading);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    -webkit-font-smoothing: antialiased;
+  }
+  html {
+    @apply font-sans;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-heading), Georgia, serif;
+  }
+}

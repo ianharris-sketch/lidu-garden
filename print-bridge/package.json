@@ -1,0 +1,16 @@
+{
+  "name": "lidu-print-bridge",
+  "version": "1.0.0",
+  "description": "Puente de impresión ESC/POS para LiDu Garden",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^1.0.0",
+    "canvas": "^3.2.3",
+    "firebase": "^10.14.0",
+    "iconv-lite": "^0.6.3",
+    "ws": "^8.21.0"
+  }
+}
