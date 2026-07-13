@@ -3,6 +3,15 @@
 import { useState } from "react";
 
 const PRICE = 45.0;
+const SOLD_OUT_DATES = ["2026-07-25"];
+
+function toISODate(date: Date) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+}
+
+function isSoldOut(date: Date) {
+  return SOLD_OUT_DATES.includes(toISODate(date));
+}
 
 function getLastSaturdays(monthsAhead = 5) {
   const dates: Date[] = [];
@@ -35,7 +44,9 @@ function formatFull(date: Date) {
 
 export default function BookingWidget() {
   const dates = getLastSaturdays();
-  const [selectedDate, setSelectedDate] = useState<Date | null>(dates[0] || null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(
+    dates.find((d) => !isSoldOut(d)) || null
+  );
   const [quantity, setQuantity] = useState(1);
 
   const handleWhatsApp = () => {
@@ -64,17 +75,21 @@ export default function BookingWidget() {
           {dates.map((date) => {
             const isSelected =
               selectedDate && date.toDateString() === selectedDate.toDateString();
+            const soldOut = isSoldOut(date);
             return (
               <button
                 key={date.toISOString()}
-                onClick={() => setSelectedDate(date)}
+                onClick={() => !soldOut && setSelectedDate(date)}
+                disabled={soldOut}
                 className={`px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wide border transition-all ${
-                  isSelected
+                  soldOut
+                    ? "bg-[#F0EBF7]/60 text-[#B8AFC2] border-[#E8D9F5] line-through cursor-not-allowed"
+                    : isSelected
                     ? "bg-[#7A52A0] text-white border-[#7A52A0] shadow-md"
                     : "bg-white text-[#7A6585] border-[#E8D9F5] hover:border-[#7A52A0] hover:text-[#7A52A0]"
                 }`}
               >
-                {formatShort(date)}
+                {soldOut ? `${formatShort(date)} · Agotado` : formatShort(date)}
               </button>
             );
           })}
