@@ -45,7 +45,7 @@ export const PLATOS: Plato[] = [
   { id: 'ent002', nombreEs: 'Alga Frita',                                   nombreZh: '炸洋菜',       precio:  6.50, foto: '', ingredientes: [], categoria: 'entrantes', descripcion: '', alergenos: [11] },
   { id: 'ent003', nombreEs: 'Pan de Gamba',                                 nombreZh: '虾片',         precio:  3.95, foto: '', ingredientes: [], categoria: 'entrantes', descripcion: '', alergenos: [2] },
   { id: 'ent004', nombreEs: 'Tempura de Verdura',                           nombreZh: '蔬菜天妇罗',   precio:  7.95, foto: '', ingredientes: [], categoria: 'entrantes', descripcion: '', alergenos: [1] },
-  { id: 'ent005', nombreEs: 'Tempura de Marisco & Verduras',                nombreZh: '蔬菜海鲜天妇罗', precio: 13.95, foto: '', ingredientes: [], categoria: 'entrantes', descripcion: '', alergenos: [1,2,4] },
+  { id: 'ent005', nombreEs: 'Tempura de Marisco & Verduras',                nombreZh: '海鲜蔬菜天妇罗', precio: 13.95, foto: '', ingredientes: [], categoria: 'entrantes', descripcion: '', alergenos: [1,2,4] },
   { id: 'ent006', nombreEs: 'Tempura de Langostino',                        nombreZh: '大虾天妇罗',   precio: 13.95, foto: '', ingredientes: [], categoria: 'entrantes', descripcion: '', alergenos: [1,2] },
   { id: 'ent007', nombreEs: 'Rollito Estilo Thai',                          nombreZh: '泰卷',         precio:  5.20, foto: '/fotos/ent007.jpg', ingredientes: [], categoria: 'entrantes', notas: '2 uds', descripcion: '', alergenos: [1] },
   { id: 'ent008', nombreEs: 'Rollito Vietnamita',                           nombreZh: '越卷',         precio:  5.50, foto: '/fotos/ent008.jpg', ingredientes: [], categoria: 'entrantes', notas: '2 uds', descripcion: '', alergenos: [] },
@@ -59,6 +59,7 @@ export const PLATOS: Plato[] = [
   { id: 'ent016', nombreEs: 'Pechuga de Pollo Relleno de Queso',            nombreZh: '奶酪鸡',       precio:  6.00, foto: '', ingredientes: [], categoria: 'entrantes', notas: '6 uds', descripcion: '', alergenos: [1,3,7] },
 
   // ── Arroces y Tallarines ──────────────────────────────────────────────────
+  { id: 'arr000', nombreEs: 'Arroz Blanco',                                  nombreZh: '白饭',         precio:  2.95, foto: '', ingredientes: [], categoria: 'arroces', descripcion: '', alergenos: [] },
   { id: 'arr001', nombreEs: 'Arroz Frito Tres Delicias',                    nombreZh: '三鲜炒饭',     precio:  5.95, foto: '/fotos/arr001.jpg', ingredientes: [], categoria: 'arroces', descripcion: '', alergenos: [3] },
   { id: 'arr002', nombreEs: 'Arroz Frito Lidu',                             nombreZh: '丽都炒饭',     precio:  7.50, foto: '', ingredientes: [], categoria: 'arroces', descripcion: 'Gambas, jamón, calamares, soja', alergenos: [2,3,6] },
   { id: 'arr003', nombreEs: 'Arroz Frito Japonés',                          nombreZh: '日本饭',       precio:  8.95, foto: '/fotos/arr003.jpg', ingredientes: [], categoria: 'arroces', descripcion: 'Setas Shitake, maíz, gambas', alergenos: [2,3,6] },
