@@ -29,7 +29,7 @@ const FIREBASE = {
   appId:             '1:129339383693:web:125f972cfdaf22e3cc67c4',
 };
 
-const PRINTER_IP   = '192.168.1.34';
+const PRINTER_IP   = '192.168.1.100';
 const PRINTER_PORT = 9100;
 
 // ── Lookups ───────────────────────────────────────────────────────────────────
@@ -146,13 +146,27 @@ function parsearMenuDia(item) {
   return esGrupo ? parsearMenuDiaGrupo(item) : parsearMenuDiaViejo(item);
 }
 
+const MENUS_FIJOS_BARRA = new Set([
+  'Mochi Japonés',
+  'Pastel de Calabaza',
+  'Crêpe Relleno de Crema de Soja',
+  'Tiramisú Casero',
+  'Mini Rollitos con Helado de Chocolate',
+  'Pudding de Mango',
+  'Helado de Té Matcha',
+]);
+
 function parsearMenuFijo(item) {
-  const nombre = (item.nombreEs || '').replace(/\s*\(mín\.[^)]*\)/i, '').trim().toUpperCase();
+  const nombre = (item.nombreEs || '')
+    .replace(/\s*\(mín\.[^)]*\)/i, '').trim().toUpperCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '');
   const titulo = nombre + ' ' + item.cantidad;
-  const platos = (item.modificacionesSeleccionadas || []).map(function(mod) {
-    const nombreEs = stripSufijos(mod);
-    return { nombreEs: nombreEs, nombreZh: MENUS_FIJOS_ZH[nombreEs] || '' };
-  });
+  const platos = (item.modificacionesSeleccionadas || [])
+    .map(function(mod) {
+      const nombreEs = stripSufijos(mod);
+      return { nombreEs: nombreEs, nombreZh: MENUS_FIJOS_ZH[nombreEs] || '' };
+    })
+    .filter(function(p) { return !MENUS_FIJOS_BARRA.has(p.nombreEs); });
   return { esMenuDia: true, titulo: titulo, platos: platos };
 }
 

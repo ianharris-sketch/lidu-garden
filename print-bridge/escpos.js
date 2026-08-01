@@ -30,6 +30,8 @@ const PRINTER_BYTES = Math.ceil(PRINTER_PX / 8); // 72
 
 // Tamaño de fuente para nombres de platos
 const FONT_SIZE_PLATO = 44;
+// Tamaño para platos sin traducción china (sushi, maki, etc.)
+const FONT_SIZE_PLATO_LATIN = 34;
 // Tamaño de fuente para modificaciones en chino (si existiesen)
 const FONT_SIZE_MOD   = 34;
 
@@ -317,17 +319,10 @@ function lineaPlato(cantidad, nombreZh, nombreEs, modificaciones) {
     }
 
   } else {
-    // Nombre en español / romanji — ESC/POS normal
-    console.log(`  📝 Texto: "${cantidad}  ${nombreZh}"`);
+    // Nombre en español / romanji — bitmap a tamaño reducido
+    console.log(`  📝 Bitmap latino: "${cantidad}  ${nombreZh}"`);
     partes.push(CMD.ALIGN_LEFT);
-    partes.push(CMD.BOLD_ON);
-    partes.push(CMD.SIZE_2H);
-    partes.push(iconv.encode(`${cantidad}  ${nombreZh}`, 'cp437'));
-    partes.push(CMD.SIZE_NORMAL);
-    partes.push(CMD.LF);
-    partes.push(CMD.BOLD_OFF);
-
-    // Nota en la misma línea debajo
+    partes.push(renderizarBitmap(`${cantidad}  ${nombreZh}`, { fontSize: FONT_SIZE_PLATO_LATIN, bold: false }));
     if (notaSufijo) {
       partes.push(iconv.encode(`     ${notaSufijo.trim()}`, 'cp437'));
       partes.push(CMD.LF);
@@ -372,9 +367,11 @@ function lineaMenuDia(titulo, platos) {
       partes.push(iconv.encode(`  (${plato.nombreEs})`, 'cp437'));
       partes.push(CMD.LF);
     } else {
-      // Sin traducción — solo español
+      // Sin traducción — doble alto para que se vea bien
       partes.push(CMD.ALIGN_LEFT);
+      partes.push(CMD.SIZE_2H);
       partes.push(iconv.encode(`* ${plato.nombreEs}`, 'cp437'));
+      partes.push(CMD.SIZE_NORMAL);
       partes.push(CMD.LF);
     }
   }
@@ -435,7 +432,9 @@ function lineaMenuDiaGrupo(titulo, secciones) {
         partes.push(CMD.LF);
       } else {
         partes.push(CMD.ALIGN_LEFT);
+        partes.push(CMD.SIZE_2H);
         partes.push(iconv.encode(`${plato.cantidad} ${plato.nombreEs}`, 'cp437'));
+        partes.push(CMD.SIZE_NORMAL);
         partes.push(CMD.LF);
       }
     }
