@@ -209,7 +209,10 @@ function esperar(ms) {
 }
 
 async function imprimirTicket(buffer, desc) {
-  await imprimirBuffer(buffer, desc);
+  for (var i = 1; i <= 3; i++) {
+    await imprimirBuffer(buffer, desc + ' (' + i + '/3)');
+    if (i < 3) await esperar(3000);
+  }
 }
 
 // ── Procesado ─────────────────────────────────────────────────────────────────
