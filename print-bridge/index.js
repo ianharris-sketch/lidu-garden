@@ -175,6 +175,7 @@ function parsearMenuFijo(item) {
 var itemsImpresos = new Map();
 var primeraLectura = true;
 var debounceTimer = null;
+var imprimiendo = false;
 
 // ── Impresión ─────────────────────────────────────────────────────────────────
 
@@ -218,6 +219,12 @@ async function imprimirTicket(buffer, desc) {
 // ── Procesado ─────────────────────────────────────────────────────────────────
 
 async function procesarPedidos(pedidos) {
+  if (imprimiendo) {
+    setTimeout(function() { procesarPedidos(pedidos); }, 1000);
+    return;
+  }
+  imprimiendo = true;
+  try {
   for (var pedidoId in pedidos) {
     var pedido = pedidos[pedidoId];
     if (!itemsImpresos.has(pedidoId)) itemsImpresos.set(pedidoId, new Set());
@@ -266,6 +273,9 @@ async function procesarPedidos(pedidos) {
 
     console.log('\n📋 Nuevo pedido: ' + desc + ' — ' + itemsTicket.length + ' plato(s)');
     await imprimirTicket(buffer, desc);
+  }
+  } finally {
+    imprimiendo = false;
   }
 }
 
