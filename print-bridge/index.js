@@ -98,7 +98,7 @@ function esBarra(item) {
 }
 
 function claveItem(item) {
-  return item.platoId + '_' + (item.addedAt || 0);
+  return item._fk || (item.platoId + '_' + (item.addedAt || 0));
 }
 
 function formatHora(ts) {
@@ -230,7 +230,9 @@ async function procesarPedidos(pedidos) {
     if (!itemsImpresos.has(pedidoId)) itemsImpresos.set(pedidoId, new Set());
     var impresos = itemsImpresos.get(pedidoId);
 
-    var todosItems = Object.values(pedido.items || {});
+    var todosItems = Object.entries(pedido.items || {}).map(function(e) {
+      return Object.assign({}, e[1], { _fk: e[0] });
+    });
     var itemsCocina = todosItems.filter(function(i) { return !esBarra(i); });
     var itemsNuevos = itemsCocina.filter(function(i) { return !impresos.has(claveItem(i)); });
 
