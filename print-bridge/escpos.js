@@ -319,10 +319,13 @@ function lineaPlato(cantidad, nombreZh, nombreEs, modificaciones) {
     }
 
   } else {
-    // Nombre en español / romanji — bitmap a tamaño reducido
-    console.log(`  📝 Bitmap latino: "${cantidad}  ${nombreZh}"`);
+    // Nombre en español / romanji — ESC/POS doble alto (sin negrita)
+    console.log(`  📝 Texto: "${cantidad}  ${nombreZh}"`);
     partes.push(CMD.ALIGN_LEFT);
-    partes.push(renderizarBitmap(`${cantidad}  ${nombreZh}`, { fontSize: FONT_SIZE_PLATO_LATIN, bold: false }));
+    partes.push(CMD.SIZE_2H);
+    partes.push(iconv.encode(`${cantidad}  ${nombreZh}`, 'cp437'));
+    partes.push(CMD.SIZE_NORMAL);
+    partes.push(CMD.LF);
     if (notaSufijo) {
       partes.push(iconv.encode(`     ${notaSufijo.trim()}`, 'cp437'));
       partes.push(CMD.LF);
