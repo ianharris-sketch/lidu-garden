@@ -310,7 +310,9 @@ onValue(pedidosRef, function(snap) {
   if (primeraLectura) {
     primeraLectura = false;
     for (var pedidoId in pedidos) {
-      var items = Object.values(pedidos[pedidoId].items || {});
+      var items = Object.entries(pedidos[pedidoId].items || {}).map(function(e) {
+        return Object.assign({}, e[1], { _fk: e[0] });
+      });
       itemsImpresos.set(pedidoId, new Set(items.map(claveItem)));
     }
     console.log('✅ Firebase conectado — ' + Object.keys(pedidos).length + ' pedidos activos');
