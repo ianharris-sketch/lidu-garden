@@ -13,6 +13,8 @@ function isSoldOut(date: Date) {
   return SOLD_OUT_DATES.includes(toISODate(date));
 }
 
+const CLOSED_MONTHS = [7]; // agosto (0-indexado): cerrado por vacaciones
+
 function getLastSaturdays(monthsAhead = 5) {
   const dates: Date[] = [];
   const now = new Date();
@@ -22,7 +24,7 @@ function getLastSaturdays(monthsAhead = 5) {
     const d = new Date(now.getFullYear(), now.getMonth() + i + 1, 0);
     const daysBack = (d.getDay() - 6 + 7) % 7;
     d.setDate(d.getDate() - daysBack);
-    if (d >= now) dates.push(new Date(d));
+    if (d >= now && !CLOSED_MONTHS.includes(d.getMonth())) dates.push(new Date(d));
   }
 
   return dates;
