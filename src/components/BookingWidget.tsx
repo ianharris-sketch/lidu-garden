@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 const PRICE = 45.0;
-const SOLD_OUT_DATES = ["2026-07-25"];
+const SOLD_OUT_DATES = ["2026-07-25", "2026-09-26"];
 
 function toISODate(date: Date) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
