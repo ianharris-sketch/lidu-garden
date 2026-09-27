@@ -66,7 +66,7 @@ const menus: MenuCard[] = [
           { name: "Rollito Estilo Thai de Verdura" },
           { name: "Sopa Miso", a: [4, 6] },
           { name: "Sopa Agripicante Estilo Beijing", a: [3, 6, 12] },
-          { name: "Gioza Empanadilla de Verdura (+2 €)" },
+          { name: "Gioza Empanadilla de Pollo (+2 €)", a: [1] },
           { name: "Maki de Aguacate vegan (+2 €)" },
         ],
       },
