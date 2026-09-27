@@ -4,8 +4,8 @@ import { useState } from "react";
 import ReservarButton from "@/components/ReservarButton";
 import { Check, Phone, Mail, ChevronDown } from "lucide-react";
 
-type CourseGroup = { label: string; options: string[] };
 type IncludeItem = { name: string; a?: number[] };
+type CourseGroup = { label: string; options: IncludeItem[] };
 
 type MenuCard = {
   id: string;
@@ -62,40 +62,43 @@ const menus: MenuCard[] = [
       {
         label: "Primer plato · elige uno",
         options: [
-          "Ensalada de la Casa",
-          "Rollito Estilo Thai de Verdura",
-          "Sopa Miso",
-          "Sopa Agripicante Estilo Beijing",
-          "Gioza Empanadilla de Verdura (+2 €)",
-          "Maki de Aguacate vegan (+2 €)",
+          { name: "Ensalada de la Casa", a: [3, 12] },
+          { name: "Rollito Estilo Thai de Verdura" },
+          { name: "Sopa Miso", a: [4, 6] },
+          { name: "Sopa Agripicante Estilo Beijing", a: [3, 6, 12] },
+          { name: "Gioza Empanadilla de Verdura (+2 €)" },
+          { name: "Maki de Aguacate vegan (+2 €)" },
         ],
       },
       {
         label: "Segundo plato · arroz o fideos",
         options: [
-          "Arroz Frito Tres Delicias",
-          "Tallarines con Pollo",
-          "Arroz Blanco (vegan)",
-          "Arroz Frito Lidu (+1 €)",
+          { name: "Arroz Frito Tres Delicias", a: [3] },
+          { name: "Tallarines con Pollo" },
+          { name: "Arroz Blanco (vegan)" },
+          { name: "Arroz Frito Lidu (+1 €)", a: [2, 3, 6] },
         ],
       },
       {
         label: "Principal · elige uno",
         options: [
-          "Pollo al Curry",
-          "Pollo al Limón",
-          "Pollo Almendrado",
-          "Pollo con Bambú y Setas Chinas",
-          "Ternera con Salsa de Ostras",
-          "Ternera con Cebolla",
-          "Cerdo Agridulce con Piña",
-          "Verduras al Wok (vegan)",
-          "Pescado al Vapor Estilo Thai (+2 €)",
+          { name: "Pollo al Curry" },
+          { name: "Pollo al Limón" },
+          { name: "Pollo Almendrado" },
+          { name: "Pollo con Bambú y Setas Chinas", a: [6] },
+          { name: "Ternera con Salsa de Ostras", a: [6] },
+          { name: "Ternera con Cebolla" },
+          { name: "Cerdo Agridulce con Piña" },
+          { name: "Verduras al Wok (vegan)" },
+          { name: "Pescado al Vapor Estilo Thai (+2 €)", a: [2, 4, 6] },
         ],
       },
       {
         label: "Para terminar",
-        options: ["Postre o café", "Bebida incluida (agua, refresco o cerveza)"],
+        options: [
+          { name: "Postre o café" },
+          { name: "Bebida incluida (agua, refresco o cerveza)" },
+        ],
       },
     ],
     highlight: false,
@@ -288,9 +291,12 @@ function MenuCardContent({ menu }: { menu: MenuCard }) {
                 {openCourse === idx && (
                   <ul className="px-4 pb-3 space-y-1.5 border-t border-[#E8D9F5]">
                     {course.options.map((opt) => (
-                      <li key={opt} className="flex items-start gap-2 pt-1.5">
+                      <li key={opt.name} className="flex items-start gap-2 pt-1.5">
                         <Check size={13} className="mt-0.5 shrink-0 text-[#7A52A0]" />
-                        <span className="text-sm text-[#1C0F2E]">{opt}</span>
+                        <span className="text-sm text-[#1C0F2E] flex items-center flex-wrap">
+                          {opt.name}
+                          {opt.a && <AllergenBadges codes={opt.a} dark={menu.highlight} />}
+                        </span>
                       </li>
                     ))}
                   </ul>
