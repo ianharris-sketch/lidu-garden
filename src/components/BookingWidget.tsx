@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { Snowflake } from "lucide-react";
 
 const PRICE = 45.0;
 const SOLD_OUT_DATES = ["2026-07-25", "2026-09-26"];
+const CHRISTMAS_DATES: Record<string, number> = { "2026-12-26": 50 };
 
 function toISODate(date: Date) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
@@ -11,6 +13,30 @@ function toISODate(date: Date) {
 
 function isSoldOut(date: Date) {
   return SOLD_OUT_DATES.includes(toISODate(date));
+}
+
+function isChristmas(date: Date | null) {
+  return date !== null && toISODate(date) in CHRISTMAS_DATES;
+}
+
+function priceFor(date: Date | null) {
+  return (date && CHRISTMAS_DATES[toISODate(date)]) || PRICE;
+}
+
+function SantaHat({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <path
+        d="M4 16C4.5 9 9 4.5 15 4.5c2.6 0 4.5 1.8 4.5 4.6V16Z"
+        fill="#D32F2F"
+        stroke="#8E1B1B"
+        strokeWidth="1"
+        strokeLinejoin="round"
+      />
+      <rect x="2" y="14.5" width="20" height="5" rx="2.5" fill="#fff" stroke="#E3D5D5" strokeWidth="0.8" />
+      <circle cx="19.5" cy="5" r="2.6" fill="#fff" stroke="#E3D5D5" strokeWidth="0.8" />
+    </svg>
+  );
 }
 
 const CLOSED_MONTHS = [7]; // agosto (0-indexado): cerrado por vacaciones
@@ -78,20 +104,37 @@ export default function BookingWidget() {
             const isSelected =
               selectedDate && date.toDateString() === selectedDate.toDateString();
             const soldOut = isSoldOut(date);
+            const christmas = isChristmas(date);
             return (
               <button
                 key={date.toISOString()}
                 onClick={() => !soldOut && setSelectedDate(date)}
                 disabled={soldOut}
-                className={`px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wide border transition-all ${
+                className={`relative px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wide border transition-all ${
                   soldOut
                     ? "bg-[#F0EBF7]/60 text-[#B8AFC2] border-[#E8D9F5] line-through cursor-not-allowed"
+                    : christmas
+                    ? `bg-[#C62828] text-white border-[#C62828] hover:bg-[#B71C1C] ${
+                        isSelected ? "ring-2 ring-offset-2 ring-[#C8973D] shadow-md" : ""
+                      }`
                     : isSelected
                     ? "bg-[#7A52A0] text-white border-[#7A52A0] shadow-md"
                     : "bg-white text-[#7A6585] border-[#E8D9F5] hover:border-[#7A52A0] hover:text-[#7A52A0]"
                 }`}
               >
-                {soldOut ? `${formatShort(date)} · Agotado` : formatShort(date)}
+                {christmas && (
+                  <SantaHat className="absolute -top-3.5 -left-2.5 w-7 h-7 -rotate-[18deg] drop-shadow-sm" />
+                )}
+                {soldOut ? (
+                  `${formatShort(date)} · Agotado`
+                ) : christmas ? (
+                  <span className="inline-flex items-center gap-1">
+                    {formatShort(date)}
+                    <Snowflake size={11} aria-hidden="true" />
+                  </span>
+                ) : (
+                  formatShort(date)
+                )}
               </button>
             );
           })}
@@ -117,7 +160,14 @@ export default function BookingWidget() {
           <span className="text-xl font-bold text-[#1C0F2E]">
             {quantity} Persona{quantity > 1 ? "s" : ""}
           </span>
-          <span className="text-xs text-[#7A6585]">{PRICE}€/pers</span>
+          <span
+            className={`text-xs ${
+              isChristmas(selectedDate) ? "text-[#C62828] font-semibold" : "text-[#7A6585]"
+            }`}
+          >
+            {priceFor(selectedDate)}€/pers
+            {isChristmas(selectedDate) && " · Especial Navidad"}
+          </span>
         </div>
         <button
           onClick={() => setQuantity((q) => q + 1)}
@@ -133,7 +183,7 @@ export default function BookingWidget() {
       <div className="flex justify-between items-center mb-6">
         <span className="text-[#7A6585] font-medium text-sm">Total</span>
         <span className="font-display text-4xl font-semibold text-[#1C0F2E]">
-          €{(PRICE * quantity).toFixed(2)}
+          €{(priceFor(selectedDate) * quantity).toFixed(2)}
         </span>
       </div>
 
