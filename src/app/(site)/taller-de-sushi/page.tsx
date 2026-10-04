@@ -50,7 +50,7 @@ const faqs = [
   },
   {
     q: "¿Política de cancelación?",
-    a: "Las reservas pueden modificarse o cancelarse con al menos 48 horas de antelación para un reembolso completo.",
+    a: "Las reservas pueden modificarse o cancelarse con al menos 5 días de antelación para un reembolso completo.",
   },
 ];
 
