@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Snowflake } from "lucide-react";
 
 const PRICE = 45.0;
-const SOLD_OUT_DATES = ["2026-07-25", "2026-09-26"];
+const SOLD_OUT_DATES = ["2026-07-25", "2026-09-26", "2026-10-31"];
 const CHRISTMAS_DATES: Record<string, number> = { "2026-12-26": 50 };
 
 function toISODate(date: Date) {
