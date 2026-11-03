@@ -295,7 +295,7 @@ export default function HomePage() {
               Dos horas, kimono tradicional, ingredientes frescos y la foto Polaroid de recuerdo.
               Solo 12 plazas. Para parejas, familias o grupos.
             </p>
-            <p className="text-[#C8973D] font-semibold mb-8">45€ por persona · Todo incluido</p>
+            <p className="text-[#C8973D] font-semibold mb-8">50€ por persona · Todo incluido</p>
             <Link
               href="/taller-de-sushi"
               className="inline-flex items-center gap-2 bg-[#C8973D] hover:bg-[#b5872e] text-white font-semibold px-7 py-3.5 rounded-full text-sm transition-colors shadow-sm"

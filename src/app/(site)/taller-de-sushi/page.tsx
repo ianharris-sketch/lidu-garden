@@ -7,7 +7,7 @@ import { Check, MapPin } from "lucide-react";
 export const metadata: Metadata = {
   title: "Taller de Sushi · LiDu Garden · Alicante",
   description:
-    "Aprende a hacer sushi con Linda en LiDu Garden. Último sábado de cada mes. Kimono, foto Polaroid y todo el sushi que prepares es tuyo. 45€ por persona. Solo 12 plazas.",
+    "Aprende a hacer sushi con Linda en LiDu Garden. Último sábado de cada mes. Kimono, foto Polaroid y todo el sushi que prepares es tuyo. 50€ por persona. Solo 12 plazas.",
 };
 
 const includes = [
@@ -231,7 +231,7 @@ export default function TallerSushiPage() {
               </div>
               <div className="bg-[#F0EBF7] p-4 rounded-xl flex items-center gap-3">
                 <span className="text-xl">💶</span>
-                <span className="text-xs">45€ / persona</span>
+                <span className="text-xs">50€ / persona</span>
               </div>
               <a
                 href="https://www.google.com/maps/search/?api=1&query=Lidu+garden+Mutxamel+Alicante"

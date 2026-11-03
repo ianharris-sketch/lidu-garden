@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Snowflake } from "lucide-react";
 
 const PRICE = 45.0;
+const PRICE_FROM_2027 = 50.0;
 const SOLD_OUT_DATES = ["2026-07-25", "2026-09-26", "2026-10-31"];
 const CHRISTMAS_DATES: Record<string, number> = { "2026-12-26": 50 };
 
@@ -20,7 +21,8 @@ function isChristmas(date: Date | null) {
 }
 
 function priceFor(date: Date | null) {
-  return (date && CHRISTMAS_DATES[toISODate(date)]) || PRICE;
+  if (!date) return PRICE;
+  return CHRISTMAS_DATES[toISODate(date)] ?? (date.getFullYear() >= 2027 ? PRICE_FROM_2027 : PRICE);
 }
 
 function SantaHat({ className }: { className?: string }) {
