@@ -5,7 +5,8 @@ import { Snowflake } from "lucide-react";
 
 const PRICE = 45.0;
 const PRICE_FROM_2027 = 50.0;
-const SOLD_OUT_DATES = ["2026-07-25", "2026-09-26", "2026-10-31"];
+const SOLD_OUT_DATES = ["2026-07-25", "2026-09-26", "2026-10-31", "2026-11-28"];
+const LAST_SPOTS_DATES = ["2026-12-26"];
 const CHRISTMAS_DATES: Record<string, number> = { "2026-12-26": 50 };
 
 function toISODate(date: Date) {
@@ -14,6 +15,10 @@ function toISODate(date: Date) {
 
 function isSoldOut(date: Date) {
   return SOLD_OUT_DATES.includes(toISODate(date));
+}
+
+function hasLastSpots(date: Date | null) {
+  return date !== null && LAST_SPOTS_DATES.includes(toISODate(date));
 }
 
 function isChristmas(date: Date | null) {
@@ -90,11 +95,18 @@ export default function BookingWidget() {
       <h3 className="font-display text-2xl text-[#1C0F2E] mb-1 text-center font-semibold">
         Reserva tu plaza
       </h3>
-      <p className="text-[#7A6585] text-xs text-center mb-6 italic">
-        {selectedDate
-          ? `Fecha seleccionada: ${formatFull(selectedDate)}`
-          : "Selecciona una fecha"}
-      </p>
+      <div className="mb-6 text-center">
+        <p className="text-[#7A6585] text-xs italic">
+          {selectedDate
+            ? `Fecha seleccionada: ${formatFull(selectedDate)}`
+            : "Selecciona una fecha"}
+        </p>
+        {hasLastSpots(selectedDate) && (
+          <p className="mt-1 text-xs font-bold uppercase tracking-wide text-[#C62828]">
+            ¡Últimas plazas disponibles!
+          </p>
+        )}
+      </div>
 
       {/* Date selector */}
       <div className="mb-6">
@@ -107,6 +119,7 @@ export default function BookingWidget() {
               selectedDate && date.toDateString() === selectedDate.toDateString();
             const soldOut = isSoldOut(date);
             const christmas = isChristmas(date);
+            const lastSpots = hasLastSpots(date);
             return (
               <button
                 key={date.toISOString()}
@@ -133,7 +146,10 @@ export default function BookingWidget() {
                   <span className="inline-flex items-center gap-1">
                     {formatShort(date)}
                     <Snowflake size={11} aria-hidden="true" />
+                    {lastSpots && <span>· Últimas plazas</span>}
                   </span>
+                ) : lastSpots ? (
+                  `${formatShort(date)} · Últimas plazas`
                 ) : (
                   formatShort(date)
                 )}
