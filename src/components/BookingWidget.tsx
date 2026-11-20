@@ -5,8 +5,9 @@ import { Snowflake } from "lucide-react";
 
 const PRICE = 45.0;
 const PRICE_FROM_2027 = 50.0;
-const SOLD_OUT_DATES = ["2026-07-25", "2026-09-26", "2026-10-31", "2026-11-28", "2026-12-26"];
-const LAST_SPOTS_DATES: string[] = [];
+const SOLD_OUT_DATES = ["2026-07-25", "2026-09-26", "2026-10-31", "2026-12-26"];
+const TOTAL_SPOTS = 12;
+const SPOTS_LEFT: Record<string, number> = { "2026-11-28": 3 };
 const CHRISTMAS_DATES: Record<string, number> = { "2026-12-26": 50 };
 
 function toISODate(date: Date) {
@@ -17,8 +18,12 @@ function isSoldOut(date: Date) {
   return SOLD_OUT_DATES.includes(toISODate(date));
 }
 
-function hasLastSpots(date: Date | null) {
-  return date !== null && LAST_SPOTS_DATES.includes(toISODate(date));
+function spotsLeft(date: Date | null) {
+  return date ? SPOTS_LEFT[toISODate(date)] ?? null : null;
+}
+
+function spotsLeftText(n: number) {
+  return n === 1 ? "¡Queda 1 plaza!" : `¡Quedan ${n} plazas!`;
 }
 
 function isChristmas(date: Date | null) {
@@ -28,6 +33,44 @@ function isChristmas(date: Date | null) {
 function priceFor(date: Date | null) {
   if (!date) return PRICE;
   return CHRISTMAS_DATES[toISODate(date)] ?? (date.getFullYear() >= 2027 ? PRICE_FROM_2027 : PRICE);
+}
+
+function PulseDot({ light }: { light?: boolean }) {
+  const color = light ? "bg-white" : "bg-[#C62828]";
+  return (
+    <span className="relative flex h-2 w-2 shrink-0" aria-hidden="true">
+      <span className={`absolute inline-flex h-full w-full rounded-full opacity-60 motion-safe:animate-ping ${color}`} />
+      <span className={`relative inline-flex h-2 w-2 rounded-full ${color}`} />
+    </span>
+  );
+}
+
+function UrgencyBanner({ left }: { left: number }) {
+  const taken = Math.max(0, TOTAL_SPOTS - left);
+  return (
+    <div
+      role="status"
+      className="mt-3 rounded-2xl border border-[#C62828]/25 bg-[#C62828]/[0.06] px-4 py-3"
+    >
+      <div className="flex items-center justify-center gap-2">
+        <PulseDot />
+        <span className="text-sm font-bold uppercase tracking-wide text-[#C62828]">
+          {spotsLeftText(left)}
+        </span>
+      </div>
+      <div className="mt-2 flex gap-1" aria-hidden="true">
+        {Array.from({ length: TOTAL_SPOTS }, (_, i) => (
+          <span
+            key={i}
+            className={`h-1.5 flex-1 rounded-full ${i < taken ? "bg-[#C62828]" : "bg-[#C62828]/20"}`}
+          />
+        ))}
+      </div>
+      <p className="mt-1.5 text-[11px] text-[#7A6585]">
+        {taken} de {TOTAL_SPOTS} plazas ya reservadas · Reserva ya la tuya
+      </p>
+    </div>
+  );
 }
 
 function SantaHat({ className }: { className?: string }) {
@@ -83,10 +126,13 @@ export default function BookingWidget() {
     dates.find((d) => !isSoldOut(d)) || null
   );
   const [quantity, setQuantity] = useState(1);
+  const selectedLeft = spotsLeft(selectedDate);
+  const maxQty = selectedLeft ?? Infinity;
+  const qty = Math.min(quantity, maxQty);
 
   const handleWhatsApp = () => {
     const dateStr = selectedDate ? formatFull(selectedDate) : "próximo taller";
-    const mensaje = `Hola! Me gustaría reservar ${quantity} plaza${quantity > 1 ? "s" : ""} para el taller de sushi del ${dateStr}. ¿Hay disponibilidad?`;
+    const mensaje = `Hola! Me gustaría reservar ${qty} plaza${qty > 1 ? "s" : ""} para el taller de sushi del ${dateStr}. ¿Hay disponibilidad?`;
     window.open(`https://wa.me/34674969177?text=${encodeURIComponent(mensaje)}`, "_blank");
   };
 
@@ -101,11 +147,7 @@ export default function BookingWidget() {
             ? `Fecha seleccionada: ${formatFull(selectedDate)}`
             : "Selecciona una fecha"}
         </p>
-        {hasLastSpots(selectedDate) && (
-          <p className="mt-1 text-xs font-bold uppercase tracking-wide text-[#C62828]">
-            ¡Últimas plazas disponibles!
-          </p>
-        )}
+        {selectedLeft !== null && <UrgencyBanner left={selectedLeft} />}
       </div>
 
       {/* Date selector */}
@@ -119,7 +161,7 @@ export default function BookingWidget() {
               selectedDate && date.toDateString() === selectedDate.toDateString();
             const soldOut = isSoldOut(date);
             const christmas = isChristmas(date);
-            const lastSpots = hasLastSpots(date);
+            const left = spotsLeft(date);
             return (
               <button
                 key={date.toISOString()}
@@ -134,6 +176,8 @@ export default function BookingWidget() {
                       }`
                     : isSelected
                     ? "bg-[#7A52A0] text-white border-[#7A52A0] shadow-md"
+                    : left !== null
+                    ? "bg-white text-[#C62828] border-[#C62828]/40 hover:border-[#C62828]"
                     : "bg-white text-[#7A6585] border-[#E8D9F5] hover:border-[#7A52A0] hover:text-[#7A52A0]"
                 }`}
               >
@@ -146,10 +190,12 @@ export default function BookingWidget() {
                   <span className="inline-flex items-center gap-1">
                     {formatShort(date)}
                     <Snowflake size={11} aria-hidden="true" />
-                    {lastSpots && <span>· Últimas plazas</span>}
                   </span>
-                ) : lastSpots ? (
-                  `${formatShort(date)} · Últimas plazas`
+                ) : left !== null ? (
+                  <span className="inline-flex items-center gap-1.5">
+                    <PulseDot light={!!isSelected} />
+                    {formatShort(date)} · {left === 1 ? "¡Queda 1!" : `¡Quedan ${left}!`}
+                  </span>
                 ) : (
                   formatShort(date)
                 )}
@@ -168,7 +214,7 @@ export default function BookingWidget() {
 
       <div className="flex items-center justify-between mb-8">
         <button
-          onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+          onClick={() => setQuantity(Math.max(1, qty - 1))}
           className="w-12 h-12 flex items-center justify-center text-2xl font-bold text-[#1C0F2E] hover:bg-[#F0EBF7] rounded-full transition"
           aria-label="Reducir cantidad"
         >
@@ -176,7 +222,7 @@ export default function BookingWidget() {
         </button>
         <div className="flex flex-col items-center">
           <span className="text-xl font-bold text-[#1C0F2E]">
-            {quantity} Persona{quantity > 1 ? "s" : ""}
+            {qty} Persona{qty > 1 ? "s" : ""}
           </span>
           <span
             className={`text-xs ${
@@ -188,8 +234,9 @@ export default function BookingWidget() {
           </span>
         </div>
         <button
-          onClick={() => setQuantity((q) => q + 1)}
-          className="w-12 h-12 flex items-center justify-center text-2xl font-bold text-[#1C0F2E] hover:bg-[#F0EBF7] rounded-full transition"
+          onClick={() => setQuantity(Math.min(maxQty, qty + 1))}
+          disabled={qty >= maxQty}
+          className="w-12 h-12 flex items-center justify-center text-2xl font-bold text-[#1C0F2E] hover:bg-[#F0EBF7] rounded-full transition disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent"
           aria-label="Aumentar cantidad"
         >
           +
@@ -201,7 +248,7 @@ export default function BookingWidget() {
       <div className="flex justify-between items-center mb-6">
         <span className="text-[#7A6585] font-medium text-sm">Total</span>
         <span className="font-display text-4xl font-semibold text-[#1C0F2E]">
-          €{(priceFor(selectedDate) * quantity).toFixed(2)}
+          €{(priceFor(selectedDate) * qty).toFixed(2)}
         </span>
       </div>
 
